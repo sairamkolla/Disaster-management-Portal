@@ -1,8 +1,8 @@
 {% for notification in notifications %}
 
 <div>
-	{% if notification.is_message_from_org: %}
-	<p> this is a message from org and it's id is {{ notification.message_from_org_id.sender_id }}. </p>
+	{% if notification.is_message_from_org  %}
+	<p> this is a message from org and it's id is {{ notification.message_from_org_id.sender_org_id.name_of_org }}. </p>
 	<br/>
 	<p> Content of message <br/> {{ notification.message_from_org_id.message_content }} </p>
 	<br/><br/>

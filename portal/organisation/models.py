@@ -18,9 +18,9 @@ class Contact_Mails_Orgs(models.Model):
     org_id=models.ForeignKey(Orgs)
     contact_mail=models.CharField(max_length=50)
 
-class Name_Orgs(models.Model):
-    org_id=models.ForeignKey(Orgs)
-    name=models.CharField(max_length=100)
+#class Name_Orgs(models.Model):
+#    org_id=models.ForeignKey(Orgs)
+#    name=models.CharField(max_length=100)
 
 class Address_Org(models.Model):
     org_id=models.ForeignKey(Orgs)
