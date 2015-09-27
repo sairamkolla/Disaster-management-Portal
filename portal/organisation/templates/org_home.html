@@ -1,4 +1,4 @@
-{% notification in notifications %}
+{% for notification in notifications %}
 
 <div>
 	{% if notification.is_message_from_org: %}
@@ -8,4 +8,5 @@
 	<br/><br/>
 	{% endif %}
 </div>
-	
+
+{% endfor %}
