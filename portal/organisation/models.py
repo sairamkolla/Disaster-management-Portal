@@ -25,26 +25,26 @@ class Name_Orgs(models.Model):
 class Address_Org(models.Model):
     org_id=models.ForeignKey(Orgs)
     street_name=models.CharField(max_length=50)
-    state_name=models.CharFiled(max_length=20)
+    state_name=models.CharField(max_length=20)
     door_number=models.CharField(max_length=10)
     city_name=models.CharField(max_length=20)
     pincode=models.CharField(max_length=6)
 
 class Messages_Orgs(models.Model):
-    sender_org_id=models.ForeignKey(Orgs)
-    receiver_org_id=models.ForeignKey(Orgs)
-    message_content=models.charField(max_length=256)
+    sender_org_id=models.ForeignKey(Orgs,related_name="sender")
+    receiver_org_id=models.ForeignKey(Orgs,related_name="receiver")
+    message_content=models.CharField(max_length=256)
 
 class Messages_From_Admin(models.Model):
     target_org_id=models.ForeignKey(Orgs)
     message_content=models.CharField(max_length=500)
 
 class Notifications_Org(models.Model):
-    target_org_id=models.ForeginKey(Orgs)
+    target_org_id=models.ForeignKey(Orgs)
     is_message_from_org=models.BooleanField(default=0)
     message_from_org_id=models.ForeignKey(Messages_Orgs)
-    is_message_from admin=models.BooleanField(default=0)
-    message_from_admin_id=models.Foreignkey(Messages_From_Admin)
+    is_message_from_admin=models.BooleanField(default=0)
+    message_from_admin_id=models.ForeignKey(Messages_From_Admin)
     is_request_from_admin=models.BooleanField(default=0)
     disaster_id=models.IntegerField()     ######################################  should make disasters app
     created=models.DateTimeField(auto_now_add=True)
