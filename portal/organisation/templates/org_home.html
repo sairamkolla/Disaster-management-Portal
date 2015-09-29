@@ -1,12 +1,11 @@
+<h1> Home page for {{ present_org.name_of_org }} </h1>
 {% for notification in notifications %}
 
 <div>
 	{% if notification.is_message_from_org  %}
-	<p> this is a message from org and it's id is {{ notification.message_from_org_id.sender_org_id.name_of_org }}. </p>
-	<br/>
-	<p> Content of message <br/> {{ notification.message_from_org_id.message_content }} </p>
+	<p> <strong>Message </strong> from {{ notification.message_from_org_id.sender_org_id.name_of_org }} sent at : {{ notification.message_from_org_id.message_content }} </p>
 	<br/><br/>
 	{% endif %}
 </div>
-
 {% endfor %}
+<a href="/orgs/create_message/{{ org_id }}" > create </a>
