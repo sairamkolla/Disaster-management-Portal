@@ -8,15 +8,22 @@ class Orgs(models.Model):
     name_of_org=models.CharField(max_length=100)
     latitude=models.CharField(max_length=15)
     longitude=models.CharField(max_length=15)
+    created=models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        #return unicode(self.name_of_org)
+        return unicode(self.id)
 
 
 class Contact_Numbers_Orgs(models.Model):
     org_id=models.ForeignKey(Orgs)
     contact_number=models.CharField(max_length=12)
+    created=models.DateTimeField(auto_now_add=True)
 
 class Contact_Mails_Orgs(models.Model):
     org_id=models.ForeignKey(Orgs)
     contact_mail=models.CharField(max_length=50)
+    created=models.DateTimeField(auto_now_add=True)
 
 #class Name_Orgs(models.Model):
 #    org_id=models.ForeignKey(Orgs)
@@ -29,24 +36,35 @@ class Address_Org(models.Model):
     door_number=models.CharField(max_length=10)
     city_name=models.CharField(max_length=20)
     pincode=models.CharField(max_length=6)
+    created=models.DateTimeField(auto_now_add=True)
+    
+    def __unicode__(self):
+        return unicode(self.org_id.name_of_org)
+
 
 class Messages_Orgs(models.Model):
     sender_org_id=models.ForeignKey(Orgs,related_name="sender")
     receiver_org_id=models.ForeignKey(Orgs,related_name="receiver")
     message_content=models.CharField(max_length=256)
+    created=models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return unicode(self.message_content)
 
 class Messages_From_Admin(models.Model):
     target_org_id=models.ForeignKey(Orgs)
     message_content=models.CharField(max_length=500)
+    created=models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return unicode(self.id)
 
 class Notifications_Org(models.Model):
     target_org_id=models.ForeignKey(Orgs)
     is_message_from_org=models.BooleanField(default=0)
-    message_from_org_id=models.ForeignKey(Messages_Orgs)
+    message_from_org_id=models.ForeignKey(Messages_Orgs,null=True,blank=True)
     is_message_from_admin=models.BooleanField(default=0)
-    message_from_admin_id=models.ForeignKey(Messages_From_Admin)
+    message_from_admin_id=models.ForeignKey(Messages_From_Admin,null=True,blank=True)
     is_request_from_admin=models.BooleanField(default=0)
-    disaster_id=models.IntegerField()     ######################################  should make disasters app
+    disaster_id=models.IntegerField(default=0)     ######################################  should make disasters app
     created=models.DateTimeField(auto_now_add=True)
-
-
