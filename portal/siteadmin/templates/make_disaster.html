@@ -1,0 +1,6 @@
+<form action='/siteadmin/make_disaster/' enctype="multipart/form-data" method="post"> {% csrf_token %}
+<ul>
+	{{ form.as_ul }}
+</ul>
+<input type="submit" name="submit" value="create the disaster" >
+</form>
