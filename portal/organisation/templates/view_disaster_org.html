@@ -1,0 +1,15 @@
+<a href='/orgs/get/{{ org_id }}'> Home </a>
+<h1>Disaster Request</h1>
+<p> NOTE : you have{% if not yes %}n't{% endif %} Accepted the request </p> 
+<p><strong>Disaster Name: </strong> {{ disaster.disaster_name }} </p>
+<p><strong>Approved time: </strong> {{ disaster.created }} </p>
+<p><strong>Latitude: </strong> {{ disaster.latitude }} </p>
+<p><strong>Longitude: </strong> {{ disaster.longitude }} </p>
+<p><strong>No of Sos received: </strong> {{ disaster.no_of_sos_received }} </p>
+<br/><br/>
+<p> Do you wish to participate in the relief operations? </p>
+<br/> <br/>
+
+<a href='/orgs/decision/{{ disaster.id }}/{{ org_id }}/0/' > Decline </a>
+<br/>
+<a href='/orgs/decision/{{ disaster.id }}/{{ org_id }}/1/' > Accept </a>

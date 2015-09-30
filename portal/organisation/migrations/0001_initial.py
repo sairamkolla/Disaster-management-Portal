@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
                 ('door_number', models.CharField(max_length=10)),
                 ('city_name', models.CharField(max_length=20)),
                 ('pincode', models.CharField(max_length=6)),
+                ('created', models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
@@ -26,6 +27,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('contact_mail', models.CharField(max_length=50)),
+                ('created', models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
@@ -33,6 +35,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('contact_number', models.CharField(max_length=12)),
+                ('created', models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
@@ -40,6 +43,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('message_content', models.CharField(max_length=500)),
+                ('created', models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
@@ -47,13 +51,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('message_content', models.CharField(max_length=256)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Name_Orgs',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=100)),
+                ('created', models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
@@ -63,10 +61,7 @@ class Migration(migrations.Migration):
                 ('is_message_from_org', models.BooleanField(default=0)),
                 ('is_message_from_admin', models.BooleanField(default=0)),
                 ('is_request_from_admin', models.BooleanField(default=0)),
-                ('disaster_id', models.IntegerField()),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('message_from_admin_id', models.ForeignKey(to='organisation.Messages_From_Admin')),
-                ('message_from_org_id', models.ForeignKey(to='organisation.Messages_Orgs')),
             ],
         ),
         migrations.CreateModel(
@@ -78,46 +73,7 @@ class Migration(migrations.Migration):
                 ('name_of_org', models.CharField(max_length=100)),
                 ('latitude', models.CharField(max_length=15)),
                 ('longitude', models.CharField(max_length=15)),
+                ('created', models.DateTimeField(auto_now_add=True)),
             ],
-        ),
-        migrations.AddField(
-            model_name='notifications_org',
-            name='target_org_id',
-            field=models.ForeignKey(to='organisation.Orgs'),
-        ),
-        migrations.AddField(
-            model_name='name_orgs',
-            name='org_id',
-            field=models.ForeignKey(to='organisation.Orgs'),
-        ),
-        migrations.AddField(
-            model_name='messages_orgs',
-            name='receiver_org_id',
-            field=models.ForeignKey(related_name='receiver', to='organisation.Orgs'),
-        ),
-        migrations.AddField(
-            model_name='messages_orgs',
-            name='sender_org_id',
-            field=models.ForeignKey(related_name='sender', to='organisation.Orgs'),
-        ),
-        migrations.AddField(
-            model_name='messages_from_admin',
-            name='target_org_id',
-            field=models.ForeignKey(to='organisation.Orgs'),
-        ),
-        migrations.AddField(
-            model_name='contact_numbers_orgs',
-            name='org_id',
-            field=models.ForeignKey(to='organisation.Orgs'),
-        ),
-        migrations.AddField(
-            model_name='contact_mails_orgs',
-            name='org_id',
-            field=models.ForeignKey(to='organisation.Orgs'),
-        ),
-        migrations.AddField(
-            model_name='address_org',
-            name='org_id',
-            field=models.ForeignKey(to='organisation.Orgs'),
         ),
     ]

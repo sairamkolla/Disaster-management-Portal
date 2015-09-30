@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from forms import Messageform, Notificationform
-from organisation.models import Notifications_Org, Orgs
+from organisation.models import Notifications_Org, Orgs, Messages_Orgs
 from django.contrib import messages
 from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect
+from siteadmin.models import Acceptance_Disaster_Org, Disaster_Description
 # Create your views here.
 
 def org_home(request,org_id):
-    notifications=Notifications_Org.objects.filter(target_org_id=org_id)
+    notifications=Notifications_Org.objects.filter(target_org_id=Orgs.objects.get(id=org_id))
     present_org=Orgs.objects.get(id=org_id)
     args={}
     args.update(csrf(request))
@@ -17,7 +18,7 @@ def org_home(request,org_id):
     args['present_org']=present_org
     return render_to_response('org_home.html',args)
 
-def message_org(request,org_id):
+def create_message_org(request,org_id):
     if request.POST:
         form=Messageform(request.POST)
         if form.is_valid:
@@ -39,4 +40,35 @@ def message_org(request,org_id):
     args['form']=form
     args['org_id']=org_id
     return render_to_response('create_message.html',args)
+def view_message_from_org(request,message_id,org_id):
+   message=Messages_Orgs.objects.get(id=message_id)
+   args={}
+   args['message'] = message
+   args['org_id'] = org_id
+   return render_to_response('view_message_from_org.html',args)
 
+def view_disaster_org(request,disaster_id,org_id):
+    args={}
+    args['org_id'] = org_id
+    yes=Acceptance_Disaster_Org.objects.filter(disaster_id=Disaster_Description.objects.get(id=disaster_id),org_id=Orgs.objects.get(id=org_id))
+    if len(yes) :
+        yes = yes[0].is_accepted
+    args['disaster'] = Disaster_Description.objects.get(id=disaster_id)
+    args['yes'] = yes
+    return render_to_response('view_disaster_org.html',args)
+
+def aod(request,disaster_id,org_id,decision):
+    x=Acceptance_Disaster_Org.objects.filter(disaster_id=Disaster_Description.objects.get(id=disaster_id),org_id=Orgs.objects.get(id=org_id))[0].id
+    m=Acceptance_Disaster_Org.objects.get(id=x)
+    m.seen=1
+    if decision :
+        m.is_accepted = 1
+    else:
+        m.is_accepted = 0
+    m.save()
+    return HttpResponseRedirect('/orgs/view_disaster_org/%s/%s/' %(disaster_id,org_id))
+def profile(request,org_id):
+    org=Orgs.objects.get(id=org_id)
+    args={}
+    args['org']=org
+    return render_to_response('profile.html',args)

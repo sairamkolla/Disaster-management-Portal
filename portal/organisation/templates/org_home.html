@@ -3,9 +3,14 @@
 
 <div>
 	{% if notification.is_message_from_org  %}
-	<p> <strong>Message </strong> from {{ notification.message_from_org_id.sender_org_id.name_of_org }} sent at : {{ notification.message_from_org_id.message_content }} </p>
-	<br/><br/>
+	<span><a href='/orgs/view_message/{{ notification.message_from_org_id.id }}/{{ org_id }}/'>
+	<p> <strong>Message </strong> from {{ notification.message_from_org_id.sender_org_id.name_of_org }} </p>
+	</a>
+	</span>
+	<br/>
+	{% elif notification.is_request_from_admin %}
+	<span><a href='/orgs/view_disaster_org/{{ notification.disaster_id.id }}/{{ org_id }}/' ><p> <strong> Disaster!!! </strong>  {{ notification.disaster_id.disaster_name }}</p></a>
 	{% endif %}
 </div>
 {% endfor %}
-<a href="/orgs/create_message/{{ org_id }}" > create </a>
+<a href="/orgs/create_message/{{ org_id }}" > Send Message </a>

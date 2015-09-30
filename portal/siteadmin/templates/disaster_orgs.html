@@ -1,0 +1,11 @@
+<a href='/siteadmin/' > home </a>
+{% for disaster in disasters %}
+	<h1> {{ disaster.disaster_name }} </h1>
+	{% for request in requests %}
+		{% if request.disaster_id.id == disaster.id and request.is_accepted == True %}
+			<p> {{ request.org_id.name_of_org }} </p>
+		{% endif %}
+	{% endfor %}
+	<br/></br>
+{% endfor %}
+

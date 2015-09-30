@@ -1,5 +1,5 @@
 from django.db import models
-
+#from django.conf import settings
 # Create your models here.
 
 class Orgs(models.Model):
@@ -12,7 +12,7 @@ class Orgs(models.Model):
 
     def __unicode__(self):
         #return unicode(self.name_of_org)
-        return unicode(self.id)
+        return unicode(self.name_of_org)
 
 
 class Contact_Numbers_Orgs(models.Model):
@@ -66,5 +66,6 @@ class Notifications_Org(models.Model):
     is_message_from_admin=models.BooleanField(default=0)
     message_from_admin_id=models.ForeignKey(Messages_From_Admin,null=True,blank=True)
     is_request_from_admin=models.BooleanField(default=0)
-    disaster_id=models.IntegerField(default=0)     ######################################  should make disasters app
+    disaster_id=models.ForeignKey('siteadmin.Disaster_Description',null=True,blank=True)
+    is_seen=models.BooleanField(default=0)
     created=models.DateTimeField(auto_now_add=True)
