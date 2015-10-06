@@ -80,4 +80,4 @@ def profile(request,org_id):
     args['contact_numbers']=contact_numbers
     contact_mails=Contact_Mails_Orgs.objects.filter(org_id=Orgs.objects.get(id=org_id))
     args['contact_mails']=contact_mails
-    return render_to_response('orgprofile.html',args)
+    return render_to_response('orgprofiletrail.html',args)

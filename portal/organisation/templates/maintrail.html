@@ -75,7 +75,7 @@
 							<div id="create_message">
 								<form action="/orgs/create_message/{{ present_org.id }}/" method="post" enctype="multipart/form-data">{% csrf_token %}
 										<p> Receiver Organisation </p>
-										{{ form.Receiver_org_id }}
+										{{ form.receiver_org_id }}
 										<p> Message </p>
 										{{ form.message_content }}
 								<input type="submit" name="submit" value="create message">
