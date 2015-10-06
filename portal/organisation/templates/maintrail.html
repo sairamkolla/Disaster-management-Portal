@@ -1,0 +1,90 @@
+{% load staticfiles %}
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'hometrail.css' %}">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div id="headerwrapper">
+				<div class="row" id="topbar">
+					<div class="col-md-3 col-sm-6 "><p>Disaster Management portal</p></div>
+					<div class="col-md-4 tile"></div>
+					<div class="col-md-3 col-sm-6"><p>{{ present_org.name_of_org }}</p></div>
+				</div>
+			</div>
+			<div id="mainbody">
+				<div class="row container-fluid">
+					<div id="navbar">
+						<div class="naventry"><a href="/orgs/get/{{ present_org.id }}/">Home</a></div>
+						<div class="naventry"><a href="/orgs/profile/{{ present_org.id }}/">Profile</a></div>
+					</div>
+				</div>
+				<div class="row container-fluid">
+					<div class="col-md-8">
+						<div class="center requestswrap">
+							{% for disaster in disasters %}
+							<div class="requestsbar">
+								<div class="bigtiles">
+									<h2> Disaster code : {{ disaster.disaster_code }} </h2>
+									<div class="tablewrap">
+										<table class="table  table-striped table-bordered table-condensed">
+											<tr><th>Time of Approval</th><th>{{ disaster.created }}</th></tr>
+											<tr><td>Reason</td><td>{{ disaster.reason }}</td></tr>
+											<tr><td>Estimated Affected People</td><td>{{ disaster.no_of_sos_received }}</td></tr>
+											<tr><td>location latitude</td><td>{{ disaster.latitude }}</td></tr>
+											<tr><td>location longitude</td><td>{{ disaster.longitude }}</td></tr>
+										</table>
+									</div>
+									<div class="row">
+										<div class="col-md-4 col-lg-3">
+											<button type="button" class="btn btn-success">Accept</button>
+										</div>
+										<div class="col-md-4 col-lg-3">
+											<button type="button" class="btn btn-danger">Decline</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div id="messagebarwrap">
+							<div id="messagebar">
+								{% for message in messages %}
+								<div class="smalltiles"><strong>{{ message.sender_org_id.name_of_org }} : </strong> {{ message.message_content }}</div>
+								{% endfor %}
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+								<div class="smalltiles">adasdasdas</div>
+							</div>
+							<br/>
+							<div id="create_message">
+								<form action="/orgs/create_message/{{ present_org.id }}/" method="post" enctype="multipart/form-data">{% csrf_token %}
+										<p> Receiver Organisation </p>
+										{{ form.Receiver_org_id }}
+										<p> Message </p>
+										{{ form.message_content }}
+								<input type="submit" name="submit" value="create message">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</body>
+</html>

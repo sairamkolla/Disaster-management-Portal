@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from forms import Messageform, Notificationform
-from organisation.models import Notifications_Org, Orgs, Messages_Orgs
+from organisation.models import Notifications_Org, Orgs, Messages_Orgs, Contact_Mails_Orgs, Contact_Numbers_Orgs
 from django.contrib import messages
 from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect
@@ -12,11 +12,16 @@ def org_home(request,org_id):
     notifications=Notifications_Org.objects.filter(target_org_id=Orgs.objects.get(id=org_id))
     present_org=Orgs.objects.get(id=org_id)
     args={}
+    disasters=Disaster_Description.objects.all()
     args.update(csrf(request))
+    messages=Messages_Orgs.objects.filter(receiver_org_id=Orgs.objects.get(id=org_id))
+    args['form']=Messageform()
+    args['messages']=messages
+    args['disasters']=disasters
     args['notifications']=notifications
     args['org_id']=org_id
     args['present_org']=present_org
-    return render_to_response('org_home.html',args)
+    return render_to_response('maintrail.html',args)
 
 def create_message_org(request,org_id):
     if request.POST:
@@ -71,4 +76,8 @@ def profile(request,org_id):
     org=Orgs.objects.get(id=org_id)
     args={}
     args['org']=org
-    return render_to_response('profile.html',args)
+    contact_numbers=Contact_Numbers_Orgs.objects.filter(org_id=Orgs.objects.get(id=org_id))
+    args['contact_numbers']=contact_numbers
+    contact_mails=Contact_Mails_Orgs.objects.filter(org_id=Orgs.objects.get(id=org_id))
+    args['contact_mails']=contact_mails
+    return render_to_response('orgprofile.html',args)
