@@ -7,6 +7,7 @@
 	<body>
 		<form action="/accounts/register/"  method="post">{% csrf_token %}
 			{{ form.as_p }}
+			{{ form2.as_p }}
 			<input type="submit" value="Register" />
 		</form>
 		<script src="/static/authentication/js/animation1.js"></script>

@@ -2,20 +2,29 @@
 <html>
 <head>
 <title>Felicity Buzz | login</title>
-<link rel="stylesheet" href="/buzz/portal/static/authentication/css/animation1.css" type="text/css" media="all">
+<link rel="stylesheet" href="/static/authentication/css/test.css" type="text/css" media="all">
 
 </head>
 <body>
-
-<h1>Login</h1>
+	<div id="login">
+	<h1><strong>Welcome </strong> Please login</h1>
 	<form action="/accounts/login/" method="post">{% csrf_token %}
-		<input type="text" placeholder="User name" name="username" id="username"/>
-		<input type="password" placeholder="Password" name="password" id="password"/>
+		<fieldset>
+			<p><input type="text" placeholder="User name" name="username" id="username"/></p>
+			<p><input type="password" placeholder="Password" name="password" id="password"/></p>
 		{% if false %}
 		<p><a href="{% url "password_reset_recover" %}"> Forgot Password? </a></p>
 		{% endif %}
-	 	<input type="submit" value="Log in" />
+	 	<input type="submit" value="Login" />
+		</fieldset>
 	</form>
+	 <p><span class="btn-round">or</span></p>
+	 <p>
+	 <div class="register">
+	 <a class="register-before" href="/accounts/register/">Register Now</a>
+	 </div>
+	 </p>
+	</div>
 		<h4><a href="/accounts/register/">Register Now!</a></h4>
 		<script src="/buzz/portal/static/authentication/js/animation1.js"></script>
 

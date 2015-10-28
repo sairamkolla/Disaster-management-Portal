@@ -8,6 +8,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
+from forms import OrgProfileform
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import json
@@ -51,7 +52,7 @@ def register(request):
 		    form = UserCreationForm()
 
 		return render_to_response('authentication/register.html', {
-		    'form': form,
+                    'form': form,'form2':form2,
 		},context_instance=RequestContext(request))
 
 @login_required
