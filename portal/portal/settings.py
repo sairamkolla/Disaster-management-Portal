@@ -39,6 +39,8 @@ INSTALLED_APPS = (
         'django.contrib.staticfiles',
         'organisation',
         'siteadmin',
+        'authentication',
+        'password_reset',
         )
 MIDDLEWARE_CLASSES = (
         'django.contrib.sessions.middleware.SessionMiddleware',
@@ -102,3 +104,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,"static/");
+AUTH_PROFILE_MODULE = 'authentication.OrgProfile'
