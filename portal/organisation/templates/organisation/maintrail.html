@@ -15,8 +15,9 @@
 			<div id="mainbody">
 				<div class="row container-fluid">
 					<div id="navbar">
-						<div class="naventry"><a href="/orgs/get/{{ present_org.id }}/">Home</a></div>
-						<div class="naventry"><a href="/orgs/profile/{{ present_org.id }}/">Profile</a></div>
+						<div class="naventry"><a href="/orgs/home/">Home</a></div>
+						<div class="naventry"><a href="/orgs/profile/">Profile</a></div>
+						<div class="naventry"><a href="/accounts/logout/">Logout</a></div>
 					</div>
 				</div>
 				<div class="row container-fluid">
@@ -62,7 +63,7 @@
 							</div>
 							<br/>
 							<div id="create_message">
-								<form action="/orgs/create_message/{{ present_org.id }}/" method="post" enctype="multipart/form-data">{% csrf_token %}
+								<form action="/orgs/create_message/" method="post" enctype="multipart/form-data">{% csrf_token %}
 									<p> Receiver Organisation </p>
 									{{ form.receiver_org_id }}
 									<p> Message </p>
