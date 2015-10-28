@@ -18,10 +18,12 @@
 				</div>
 			</div>
 			<div id="mainbody">
+				{{ username }}
 				<div class="row container-fluid">
 					<div id="navbar">
-						<div class="naventry"><a href="/orgs/get/{{ org.id }}/">Home</a></div>
-						<div class="naventry"><a href="/orgs/profile/{{ org.id }}/">Profile</a></div>
+						<div class="naventry"><a href="/orgs/home/">Home</a></div>
+						<div class="naventry"><a href="/orgs/profile/">Profile</a></div>
+						<div class="naventry"><a href="/accounts/logout/">Logout</a></div>
 					</div>
 				</div>
 				<div class="row container-fluid">
@@ -38,7 +40,7 @@
 							</tr>
 							<tr>
 								<td><B>Organisation Head </B> </td>
-								<td>{{ org.person_in_charge }} </td>
+								<td>{{ org.org_head }} </td>
 							</tr>
 							<tr>
 								<td><B>Tags </B> </td><td>{{ org.tags }} </td>
