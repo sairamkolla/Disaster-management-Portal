@@ -10,6 +10,7 @@ class Disaster_Description(models.Model):
     disaster_code=models.CharField(max_length=2)
     disaster_name=models.CharField(max_length=20)
     reason=models.CharField(max_length=200)
+    no_people_affected=models.IntegerField(default=0)
     #approved_timestamp=DateTimeField(auto_now_add=True)
 
     def __unicode__(self):

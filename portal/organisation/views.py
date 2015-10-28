@@ -21,7 +21,7 @@ def org_home(request,org_id):
     args['notifications']=notifications
     args['org_id']=org_id
     args['present_org']=present_org
-    return render_to_response('maintrail.html',args)
+    return render_to_response('organisation/maintrail.html',args)
 
 def create_message_org(request,org_id):
     if request.POST:
@@ -38,40 +38,6 @@ def create_message_org(request,org_id):
             ##### A notification for the receiver is  created now #####
             mm.save()
             return HttpResponseRedirect('/orgs/get/%s' % org_id)
-    else:
-        form=Messageform()
-    args={}
-    args.update(csrf(request))
-    args['form']=form
-    args['org_id']=org_id
-    return render_to_response('create_message.html',args)
-def view_message_from_org(request,message_id,org_id):
-   message=Messages_Orgs.objects.get(id=message_id)
-   args={}
-   args['message'] = message
-   args['org_id'] = org_id
-   return render_to_response('view_message_from_org.html',args)
-
-def view_disaster_org(request,disaster_id,org_id):
-    args={}
-    args['org_id'] = org_id
-    yes=Acceptance_Disaster_Org.objects.filter(disaster_id=Disaster_Description.objects.get(id=disaster_id),org_id=Orgs.objects.get(id=org_id))
-    if len(yes) :
-        yes = yes[0].is_accepted
-    args['disaster'] = Disaster_Description.objects.get(id=disaster_id)
-    args['yes'] = yes
-    return render_to_response('view_disaster_org.html',args)
-
-def aod(request,disaster_id,org_id,decision):
-    x=Acceptance_Disaster_Org.objects.filter(disaster_id=Disaster_Description.objects.get(id=disaster_id),org_id=Orgs.objects.get(id=org_id))[0].id
-    m=Acceptance_Disaster_Org.objects.get(id=x)
-    m.seen=1
-    if decision :
-        m.is_accepted = 1
-    else:
-        m.is_accepted = 0
-    m.save()
-    return HttpResponseRedirect('/orgs/view_disaster_org/%s/%s/' %(disaster_id,org_id))
 def profile(request,org_id):
     org=Orgs.objects.get(id=org_id)
     args={}
@@ -80,4 +46,4 @@ def profile(request,org_id):
     args['contact_numbers']=contact_numbers
     contact_mails=Contact_Mails_Orgs.objects.filter(org_id=Orgs.objects.get(id=org_id))
     args['contact_mails']=contact_mails
-    return render_to_response('orgprofiletrail.html',args)
+    return render_to_response('organisation/orgprofiletrail.html',args)

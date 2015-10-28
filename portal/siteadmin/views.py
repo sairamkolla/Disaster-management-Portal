@@ -39,3 +39,9 @@ def disaster_orgs(request):
     args['requests']=requests
     args['disasters']=disasters
     return render_to_response('disaster_orgs.html',args)
+
+def admin_view_org(request):
+    orgs=Orgs.objects.all()
+    args={}
+    args['orgs']=orgs
+    return render_to_response('admin_view_org.html',args)
