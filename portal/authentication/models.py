@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-class OrgProfile(models.Model):
-    user=models.ForeignKey(User,null=True)
+class Orgs(models.Model):
+    user=models.OneToOneField(User,null=True)
     org_head=models.CharField(max_length=100)
     org_strength=models.IntegerField(default=0)
     name_of_org=models.CharField(max_length=100)
@@ -13,6 +13,5 @@ class OrgProfile(models.Model):
     tags=models.CharField(max_length=100,null=True)
     def __unicode__(self):
         return unicode(self.name_of_org)
-
 
 
