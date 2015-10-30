@@ -20,7 +20,8 @@ class Acceptance_Disaster_Org(models.Model):
     disaster_id=models.ForeignKey(Disaster_Description)
     is_accepted=models.IntegerField(default=0)
     seen=models.BooleanField(default=False)
-    org_id=models.ForeignKey('organisation.Orgs')
+    #org_id=models.ForeignKey('organisation.Orgs')
+    org_id=models.ForeignKey('authentication.Orgs')
     created=models.DateTimeField(auto_now_add=True)
     #accepted_timestamp=DateTimeField(auto_now_add=True)
 
