@@ -1,0 +1,59 @@
+<html>
+	<head>
+	<script src="/static/organisation/js/angularjs.js"></script>
+	<script>
+
+
+var app = angular.module('myapp', []);
+
+app.controller('myctrl', ['$scope', '$http', '$templateCache',
+		function($scope, $http, $templateCache) {
+			
+			$scope.myvar = 'initial';
+			$scope.umesh = 'singla';
+			console.log("inside controller");
+				
+			$scope.updateModel = function(x) {
+				
+				console.log(x);
+				console.log('inside func');
+				//$scope.code = null;
+				//$scope.response = null;
+
+				$http({
+					method: 'GET', 
+					url: 'http://127.0.0.1:8000/test/',
+					headers : {
+						'Content-Type' : 'application/json'
+					}
+				}).
+					then(function(response) {
+						$scope.myvar = response;
+						console.log(response);
+						//$scope.status = response.status;
+						//$scope.data = response.data;
+					}, function(error) {
+						console.log(error);
+						//$scope.data = response.data || "Request failed";
+						//$scope.status = response.status;
+					});
+			};
+
+			/*$scope.updateModel = function(method, url) {
+				$scope.method = method;
+				$scope.url = url;
+			};*/
+		}]);
+
+
+
+	</script>
+	</head>
+	<body ng-app='myapp'>
+		<div ng-controller="myctrl">
+			<input type='text' ng-model='myvar' ></input>
+			<div>{{myvar}} {{umesh}}</div>
+			<input type="button" value="send to server" ng-click='updateModel(myvar)'></input>
+		</div>
+	</body>
+</html>

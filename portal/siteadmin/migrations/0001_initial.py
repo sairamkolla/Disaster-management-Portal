@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('organisation', '0001_initial'),
     ]
 
     operations = [
@@ -15,7 +14,8 @@ class Migration(migrations.Migration):
             name='Acceptance_Disaster_Org',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('is_accepted', models.BooleanField(default=0)),
+                ('is_accepted', models.IntegerField(default=0)),
+                ('seen', models.BooleanField(default=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
             ],
         ),
@@ -35,6 +35,10 @@ class Migration(migrations.Migration):
                 ('longitude', models.CharField(max_length=15)),
                 ('is_confirmed', models.BooleanField(default=0)),
                 ('created', models.DateTimeField(auto_now_add=True)),
+                ('disaster_code', models.CharField(max_length=2)),
+                ('disaster_name', models.CharField(max_length=20)),
+                ('reason', models.CharField(max_length=200)),
+                ('no_people_affected', models.IntegerField(default=0)),
             ],
         ),
         migrations.CreateModel(
@@ -58,10 +62,5 @@ class Migration(migrations.Migration):
             model_name='acceptance_disaster_org',
             name='disaster_id',
             field=models.ForeignKey(to='siteadmin.Disaster_Description'),
-        ),
-        migrations.AddField(
-            model_name='acceptance_disaster_org',
-            name='org_id',
-            field=models.ForeignKey(to='organisation.Orgs'),
         ),
     ]

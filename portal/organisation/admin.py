@@ -2,6 +2,8 @@ from django.contrib import admin
 from organisation.models import *
 # Register your models here.
 
+###Check
+admin.site.register(Orgs)
 admin.site.register(Contact_Numbers_Orgs)
 admin.site.register(Contact_Mails_Orgs)
 admin.site.register(Address_Org)

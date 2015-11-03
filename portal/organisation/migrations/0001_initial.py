@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('siteadmin', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -61,19 +64,60 @@ class Migration(migrations.Migration):
                 ('is_message_from_org', models.BooleanField(default=0)),
                 ('is_message_from_admin', models.BooleanField(default=0)),
                 ('is_request_from_admin', models.BooleanField(default=0)),
+                ('is_seen', models.BooleanField(default=0)),
                 ('created', models.DateTimeField(auto_now_add=True)),
+                ('disaster_id', models.ForeignKey(blank=True, to='siteadmin.Disaster_Description', null=True)),
+                ('message_from_admin_id', models.ForeignKey(blank=True, to='organisation.Messages_From_Admin', null=True)),
+                ('message_from_org_id', models.ForeignKey(blank=True, to='organisation.Messages_Orgs', null=True)),
             ],
         ),
         migrations.CreateModel(
             name='Orgs',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('person_in_charge', models.CharField(max_length=100)),
-                ('people_working', models.IntegerField(default=0)),
+                ('org_head', models.CharField(max_length=100)),
+                ('org_strength', models.IntegerField(default=0)),
                 ('name_of_org', models.CharField(max_length=100)),
                 ('latitude', models.CharField(max_length=15)),
                 ('longitude', models.CharField(max_length=15)),
                 ('created', models.DateTimeField(auto_now_add=True)),
+                ('tags', models.CharField(max_length=100, null=True)),
+                ('user', models.OneToOneField(null=True, to=settings.AUTH_USER_MODEL)),
             ],
+        ),
+        migrations.AddField(
+            model_name='notifications_org',
+            name='target_org_id',
+            field=models.ForeignKey(to='organisation.Orgs', null=True),
+        ),
+        migrations.AddField(
+            model_name='messages_orgs',
+            name='receiver_org_id',
+            field=models.ForeignKey(related_name='receiver', to='organisation.Orgs', null=True),
+        ),
+        migrations.AddField(
+            model_name='messages_orgs',
+            name='sender_org_id',
+            field=models.ForeignKey(related_name='sender', to='organisation.Orgs', null=True),
+        ),
+        migrations.AddField(
+            model_name='messages_from_admin',
+            name='target_org_id',
+            field=models.ForeignKey(to='organisation.Orgs', null=True),
+        ),
+        migrations.AddField(
+            model_name='contact_numbers_orgs',
+            name='org_id',
+            field=models.ForeignKey(to='organisation.Orgs', null=True),
+        ),
+        migrations.AddField(
+            model_name='contact_mails_orgs',
+            name='org_id',
+            field=models.ForeignKey(to='organisation.Orgs', null=True),
+        ),
+        migrations.AddField(
+            model_name='address_org',
+            name='org_id',
+            field=models.ForeignKey(to='organisation.Orgs', null=True),
         ),
     ]

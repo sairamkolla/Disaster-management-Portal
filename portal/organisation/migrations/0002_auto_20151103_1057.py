@@ -1,19 +1,23 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('siteadmin', '0006_disaster_description_reason'),
+        ('organisation', '0001_initial'),
     ]
 
     operations = [
+        migrations.RemoveField(
+            model_name='orgs',
+            name='user',
+        ),
         migrations.AddField(
-            model_name='disaster_description',
-            name='no_people_affected',
+            model_name='orgs',
+            name='userid',
             field=models.IntegerField(default=0),
         ),
     ]

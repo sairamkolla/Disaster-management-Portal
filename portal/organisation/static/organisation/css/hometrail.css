@@ -47,6 +47,7 @@
 .tablewrap{
 	max-width:500px;
 	text-align:center;
+	margin:auto;
 }
 #headerwrapper{
 	background: #4285F4;

@@ -1,12 +1,16 @@
 from django.shortcuts import render
+from django.contrib import messages
 from django.shortcuts import render_to_response
 from forms import Messageform, Notificationform
-from organisation.models import Notifications_Org, Messages_Orgs, Contact_Mails_Orgs, Contact_Numbers_Orgs
-from authentication.models import Orgs
-from django.contrib import messages
+#from organisation.models import Notifications_Org, Messages_Orgs, Contact_Mails_Orgs, Contact_Numbers_Orgs
+from organisation.models import Notifications_Org, Messages_Orgs, Contact_Mails_Orgs, Contact_Numbers_Orgs, Orgs
+#from authentication.models import Orgs
 from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect
 from siteadmin.models import Acceptance_Disaster_Org, Disaster_Description
+from rest_framework.decorators import api_view
+from organisation.serializers import *
+from rest_framework.response import Response
 # Create your views here.
 
 def org_home(request):
@@ -48,3 +52,14 @@ def profile(request):
     args['contact_mails']=contact_mails
     args['username']=request.user.username
     return render_to_response('organisation/orgprofiletrail.html',args)
+
+@api_view(['GET','POST'])
+def test(request):
+    if request.GET:
+        list_of_orgs = Orgs.objects.all()
+        serializer = OrganisationSerializer(messages, many=True)
+        return Response(serializer.data)
+
+def best(request):
+    return render_to_response('organisation/test.html')
+
