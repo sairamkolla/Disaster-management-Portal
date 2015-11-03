@@ -36,7 +36,7 @@ def fill_profile(request):
         form = OrgProfileForm(request.POST)
         if form.is_valid:
             a= form.save(commit=False)
-            a.user = request.user
+            a.userid = request.user.id
             a.save()
             
             return HttpResponseRedirect('/')

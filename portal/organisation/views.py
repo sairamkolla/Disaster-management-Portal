@@ -14,12 +14,12 @@ from rest_framework.response import Response
 # Create your views here.
 
 def org_home(request):
-    notifications=Notifications_Org.objects.filter(target_org_id=Orgs.objects.get(user=request.user))
-    present_org=Orgs.objects.get(user=request.user)
+    notifications=Notifications_Org.objects.filter(target_org_id=Orgs.objects.get(userid=request.user.id))
+    present_org=Orgs.objects.get(userid=request.user.id)
     args={}
     disasters=Disaster_Description.objects.all()
     args.update(csrf(request))
-    messages=Messages_Orgs.objects.filter(receiver_org_id=Orgs.objects.get(user=request.user))
+    messages=Messages_Orgs.objects.filter(receiver_org_id=Orgs.objects.get(userid=request.user.id))
     args['form']=Messageform()
     args['messages']=messages
     args['disasters']=disasters
@@ -32,7 +32,7 @@ def create_message_org(request):
         form=Messageform(request.POST)
         if form.is_valid:
             a=form.save(commit=False)
-            a.sender_org_id=Orgs.objects.get(user=request.user)
+            a.sender_org_id=Orgs.objects.get(userid=request.user.id)
             a.save()
             ##### Message is stored into database now #####
             send=a.sender_org_id
@@ -43,12 +43,12 @@ def create_message_org(request):
             mm.save()
             return HttpResponseRedirect('/')
 def profile(request):
-    org=Orgs.objects.get(user=request.user)
+    org=Orgs.objects.get(userid=request.user.id)
     args={}
     args['org']=org
-    contact_numbers=Contact_Numbers_Orgs.objects.filter(org_id=Orgs.objects.get(user=request.user))
+    contact_numbers=Contact_Numbers_Orgs.objects.filter(org_id=Orgs.objects.get(userid=request.user.id))
     args['contact_numbers']=contact_numbers
-    contact_mails=Contact_Mails_Orgs.objects.filter(org_id=Orgs.objects.get(user=request.user))
+    contact_mails=Contact_Mails_Orgs.objects.filter(org_id=Orgs.objects.get(userid=request.user.id))
     args['contact_mails']=contact_mails
     args['username']=request.user.username
     return render_to_response('organisation/orgprofiletrail.html',args)
