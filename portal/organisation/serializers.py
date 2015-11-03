@@ -5,5 +5,5 @@ from django.contrib.auth.models import User
 class OrganisationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orgs
-        fields= ("user","org_head","org_strength","name_of_org","latitude","longitude","tags")
+        fields= ("userid","org_head","org_strength","name_of_org","latitude","longitude","tags")
 
