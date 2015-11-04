@@ -4,7 +4,9 @@
 	<script>
 
 
-var app = angular.module('myapp', []);
+var app = angular.module('myapp', []).config(function($interpolateProvider){
+	$interpolateProvider.startSymbol('[[').endSymbol(']]');
+});
 
 app.controller('myctrl', ['$scope', '$http', '$templateCache',
 		function($scope, $http, $templateCache) {
@@ -13,31 +15,42 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache',
 			$scope.umesh = 'singla';
 			console.log("inside controller");
 				
-			$scope.updateModel = function(x) {
-				
+			//$scope.getdisasters = function(x) {
+			$scope.updateModel = function(x){	
 				console.log(x);
 				console.log('inside func');
-				//$scope.code = null;
-				//$scope.response = null;
 
+				//$http({
+			//		method: 'GET',
+		//			url: 'http://127.0.0.1:8000/test/',
+			//		headers : {
+			//			'Content-Type' : 'application/json'
+			//		}
+			//	}).
+				getuserid();
+				$http.get('http://127.0.0.1:8000/data/getdisasters/'+ id +'/').
+					then(function(response) {
+						$scope.myvar = response.data;
+						console.log(response);
+					}, function(error) {
+						console.log(error);
+					});
+			};
+			$scope.getuserid = function(){
 				$http({
-					method: 'GET', 
+					method: 'GET',
 					url: 'http://127.0.0.1:8000/test/',
 					headers : {
 						'Content-Type' : 'application/json'
 					}
 				}).
 					then(function(response) {
-						$scope.myvar = response;
-						console.log(response);
-						//$scope.status = response.status;
-						//$scope.data = response.data;
+						$scope.id = response.data.id;
+			
 					}, function(error) {
 						console.log(error);
-						//$scope.data = response.data || "Request failed";
-						//$scope.status = response.status;
-					});
-			};
+					});	
+			}
 
 			/*$scope.updateModel = function(method, url) {
 				$scope.method = method;
@@ -48,11 +61,26 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache',
 
 
 	</script>
+	<style>
+	.something{
+	display:none;
+	}
+	</style>
 	</head>
 	<body ng-app='myapp'>
 		<div ng-controller="myctrl">
 			<input type='text' ng-model='myvar' ></input>
-			<div>{{myvar}} {{umesh}}</div>
+			<div>[[myvar]] [[umesh]]</div>
+			<div ng-repeat="user in myvar">
+				<p> [[ user.userid ]] </p>
+				<p> [[ user.org_head ]] </p>
+				<p> [[ user.name_of_org ]] </p>
+				<p> [[ user.org_strength ]] </p>
+				<p> [[ user.latitude ]] </p>
+				<p> [[ user.longitude ]] </p>
+				<p> [[ user.tags ]] </p>
+				
+			</div>
 			<input type="button" value="send to server" ng-click='updateModel(myvar)'></input>
 		</div>
 	</body>
