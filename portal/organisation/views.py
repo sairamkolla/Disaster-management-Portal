@@ -54,12 +54,19 @@ def profile(request):
     return render_to_response('organisation/orgprofiletrail.html',args)
 
 @api_view(['GET','POST'])
-def test(request):
-    if request.GET:
+def getdisasters(request):
+    if request.method == 'GET' :
+        return Response({"id":request.user.id})
+    if request.method == 'GET':
         list_of_orgs = Orgs.objects.all()
-        serializer = OrganisationSerializer(messages, many=True)
+        serializer = OrganisationSerializer(list_of_orgs, many=True)
         return Response(serializer.data)
-
+@api_view(['GET'])
+def test(request):
+    if request.method == 'GET' :
+        return Response({"id":request.user.id})
 def best(request):
-    return render_to_response('organisation/test.html')
+    args={}
+    args['id']=request.user.id
+    return render_to_response('organisation/test.html',args)
 

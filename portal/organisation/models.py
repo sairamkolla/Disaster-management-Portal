@@ -41,10 +41,10 @@ class Address_Org(models.Model):
 
 
 class Messages_Orgs(models.Model):
-    #sender_org_id=models.ForeignKey(Orgs,related_name="sender",null=True)
-    #receiver_org_id=models.ForeignKey(Orgs,related_name="receiver",null=True)
-    sender_org_id=models.IntegerField(default=0)
-    receiver_org_id=models.IntegerField(default=0)
+    sender_org_id=models.ForeignKey(Orgs,related_name="sender",null=True)
+    receiver_org_id=models.ForeignKey(Orgs,related_name="receiver",null=True)
+    #sender_org_id=models.IntegerField(default=0)
+    #receiver_org_id=models.IntegerField(default=0)
     message_content=models.CharField(max_length=256)
     created=models.DateTimeField(auto_now_add=True)
 
@@ -61,6 +61,7 @@ class Messages_From_Admin(models.Model):
 
 class Notifications_Org(models.Model):
     target_org_id=models.ForeignKey(Orgs,null=True)
+    #target_org_id=models.IntegerField(default=0)
     is_message_from_org=models.BooleanField(default=0)
     message_from_org_id=models.ForeignKey(Messages_Orgs,null=True,blank=True)
     is_message_from_admin=models.BooleanField(default=0)
