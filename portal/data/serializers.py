@@ -13,7 +13,7 @@ class OrgProfileSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Messages_Orgs
-        fields = ("sender_org_id","message_content","created")
+        fields = ("id","sender_org_id","message_content","created")
 
 
 ###### Admin related serializers start here
@@ -21,4 +21,4 @@ class MessageSerializer(serializers.ModelSerializer):
 class DisasterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Disaster_Description
-        fields = ("created","disaster_name","reason","no_people_affected","latitude","longitude")
+        fields = ("id","created","disaster_name","reason","no_people_affected","latitude","longitude")

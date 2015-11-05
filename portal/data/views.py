@@ -4,13 +4,13 @@ from organisation.models import *
 from authentication.models import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.db.models import Q
+from collections import OrderedDict
 # Create your views here.
 
 @api_view(['GET','POST'])
-def getdisasters(request,id):
+def getdisasters(request,id,disasterid):
     if request.method == 'GET':
-        list_of_disasters = Disaster_Description.objects.all()
+        list_of_disasters = Disaster_Description.objects.filter(id__gt = disasterid)
         serializer = DisasterSerializer(list_of_disasters, many=True)
         return Response(serializer.data)
 
@@ -25,7 +25,7 @@ def getmessages(request,id,messageid):
         messages = Messages_Orgs.objects.filter(receiver_org_id = org, id__gt = messageid)
         serializer = MessageSerializer(messages, many = True)
         for x in serializer.data:
-            x.__setitem__("sender",Orgs.objects.get(id=x.items()[0][1]).name_of_org)
+            x.__setitem__("sender",Orgs.objects.get(id=x.items()[1][1]).name_of_org)
             del x['sender_org_id']
         return Response(serializer.data)
 
