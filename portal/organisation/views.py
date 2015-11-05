@@ -14,6 +14,8 @@ from rest_framework.response import Response
 # Create your views here.
 
 def org_home(request):
+
+
     notifications=Notifications_Org.objects.filter(target_org_id=Orgs.objects.get(userid=request.user.id))
     present_org=Orgs.objects.get(userid=request.user.id)
     args={}
@@ -21,9 +23,6 @@ def org_home(request):
     args.update(csrf(request))
     messages=Messages_Orgs.objects.filter(receiver_org_id=Orgs.objects.get(userid=request.user.id))
     args['form']=Messageform()
-    args['messages']=messages
-    args['disasters']=disasters
-    args['notifications']=notifications
     args['present_org']=present_org
     return render_to_response('organisation/maintrail.html',args)
 
@@ -53,16 +52,8 @@ def profile(request):
     args['username']=request.user.username
     return render_to_response('organisation/orgprofiletrail.html',args)
 
-@api_view(['GET','POST'])
-def getdisasters(request):
-    if request.method == 'GET' :
-        return Response({"id":request.user.id})
-    if request.method == 'GET':
-        list_of_orgs = Orgs.objects.all()
-        serializer = OrganisationSerializer(list_of_orgs, many=True)
-        return Response(serializer.data)
 @api_view(['GET'])
-def test(request):
+def getuserid(request):
     if request.method == 'GET' :
         return Response({"id":request.user.id})
 def best(request):
