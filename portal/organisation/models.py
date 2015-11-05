@@ -41,8 +41,10 @@ class Address_Org(models.Model):
 
 
 class Messages_Orgs(models.Model):
-    sender_org_id=models.ForeignKey(Orgs,related_name="sender",null=True)
-    receiver_org_id=models.ForeignKey(Orgs,related_name="receiver",null=True)
+    #sender_org_id=models.ForeignKey(Orgs,related_name="sender",null=True)
+    #receiver_org_id=models.ForeignKey(Orgs,related_name="receiver",null=True)
+    sender_org_id=models.IntegerField(default=0)
+    receiver_org_id=models.IntegerField(default=0)
     message_content=models.CharField(max_length=256)
     created=models.DateTimeField(auto_now_add=True)
 
