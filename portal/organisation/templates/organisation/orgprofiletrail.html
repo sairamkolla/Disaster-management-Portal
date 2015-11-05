@@ -2,19 +2,14 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="/static/organisation/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="/static/organisation/css/hometrail.css">
-		<script>
-		function aa(){
-		console.log('hey there!!');
-		}
-		</script>
 	</head>
 	<body>
-		<div class="container-fluid">
+		<div class="wrapper">
 			<div id="headerwrapper">
 				<div class="row" id="topbar">
-					<div class="col-md-3 col-sm-6 "><p>Disaster Management portal</p></div>
-					<div class="col-md-4 tile"></div>
-					<div class="col-md-3 col-sm-6"><p>{{ org.name_of_org }}</p></div>
+					<div style="float:left"><p>Disaster Management portal</p></div>
+
+					<div style="float:right"><p>{{ org.name_of_org }}</p></div>
 				</div>
 			</div>
 			<div id="mainbody">
@@ -32,7 +27,8 @@
 						<table class="table table-striped table-condensed table-bordered">
 							<tr>
 								<td><B>Organisation Name </B> </td>
-								<td>{{ org.name_of_org }}</td>
+								<td >{{ org.name_of_org }}</td>
+
 							</tr>
 							<tr>
 								<td><B>GPS co-ordinates </B> </td>

@@ -21,4 +21,4 @@ class MessageSerializer(serializers.ModelSerializer):
 class DisasterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Disaster_Description
-        fields = ("id","created","disaster_name","reason","no_people_affected","latitude","longitude")
+        fields = ("id","created","disaster_name","disaster_code","reason","no_people_affected","latitude","longitude")

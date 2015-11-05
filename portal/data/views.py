@@ -29,8 +29,3 @@ def getmessages(request,id,messageid):
             del x['sender_org_id']
         return Response(serializer.data)
 
-@api_view(['GET'])
-def getuserid(request):
-    if request.method == 'GET' :
-        return Response({"id":request.user.id})
-
