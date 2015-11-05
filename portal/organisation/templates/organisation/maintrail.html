@@ -2,8 +2,11 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="/static/organisation/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="/static/organisation/css/hometrail.css">
+		<script src="/static/organisation/js/angularjs.js"></script>
+        <script src="/static/organisation/js/home.js"></script>
 	</head>
-	<body>
+	<body ng-app="myapp">
+	<div ng-controller="myctrl" ng-init="init()">
 		<div class="container-fluid">
 			<div id="headerwrapper">
 				<div class="row" id="topbar">
@@ -22,22 +25,22 @@
 				</div>
 				<div class="row container-fluid">
 					<div class="col-md-8">
-						<div class="center requestswrap">
-							{% for disaster in disasters %}
+						<div class="center requestswrap" ng-repeat="disaster in disasters">
+
 							<div class="requestsbar">
 								<div class="bigtiles">
 									<div class="row">
-										<h2> Disaster code : {{ disaster.disaster_code }} </h2>
+										<h2> Disaster code : [[ disaster.disaster_code ]] </h2>
 									</div>
 									<div class="row">
 										<div class="tablewrap test col-md-8 col-sm-12">
 											<table class="table table-striped table-bordered table-condensed">
-												<tr><th>Time of Approval</th><th>{{ disaster.created }}</th></tr>
-												<tr><td>Disaster Name</td><td>{{ disaster.disaster_name }}</td></tr>
-												<tr><td>Reason</td><td>{{ disaster.reason }}</td></tr>
-												<tr><td>Estimated Affected People</td><td>{{ disaster.no_of_sos_received }}</td></tr>
-												<tr><td>location latitude</td><td>{{ disaster.latitude }}</td></tr>
-												<tr><td>location longitude</td><td>{{ disaster.longitude }}</td></tr>
+												<tr><th>Time of Approval</th><th>[[ disaster.created ]]</th></tr>
+												<tr><td>Disaster Name</td><td>[[ disaster.disaster_name ]]</td></tr>
+												<tr><td>Reason</td><td>[[ disaster.reason ]]</td></tr>
+												<tr><td>Estimated Affected People</td><td>[[ disaster.no_people_affected ]]</td></tr>
+												<tr><td>location latitude</td><td>[[ disaster.latitude ]]</td></tr>
+												<tr><td>location longitude</td><td>[[ disaster.longitude ]]</td></tr>
 											</table>
 										</div>
 									</div>
@@ -51,15 +54,17 @@
 									</div>
 								</div>
 							</div>
-							{% endfor %}
+
 						</div>
+
 					</div>
 					<div class="col-md-4">
 						<div id="messagebarwrap">
 							<div id="messagebar">
-								{% for message in messages %}
-								<div class="smalltiles"><p><strong>{{ message.sender_org_id.name_of_org }} ( {{ message.created }}) : </strong> {{ message.message_content }}</p></div>
-								{% endfor %}
+                                <div ng-repeat="message in messages">
+
+								<div class="smalltiles"><p><strong>[[ message.sender ]] ( [[ message.created.split('T')[0] ]]) : </strong> [[ message.message_content]]</p></div>
+                            </div>
 							</div>
 							<br/>
 							<div id="create_message">
@@ -76,5 +81,7 @@
 				</div>	
 			</div>
 		</div>
+		</div>
+
 	</body>
 </html>
