@@ -5,12 +5,28 @@ class Disaster_Description(models.Model):
     no_of_sos_received=models.IntegerField(default=0)
     latitude=models.CharField(max_length=15)
     longitude=models.CharField(max_length=15)
-    is_confirmed=models.BooleanField(default=0)
+    #is_confirmed=models.BooleanField(default=False)
     created=models.DateTimeField(auto_now_add=True)
     disaster_code=models.CharField(max_length=2)
     disaster_name=models.CharField(max_length=20)
     reason=models.CharField(max_length=200)
     no_people_affected=models.IntegerField(default=0)
+    #is_viewed=models.BooleanField(default=False)
+    #approved_timestamp=DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return unicode(self.disaster_name)
+class Disaster_Proposal(models.Model):
+    no_of_sos_received=models.IntegerField(default=0)
+    latitude=models.CharField(max_length=15)
+    longitude=models.CharField(max_length=15)
+    is_confirmed=models.BooleanField(default=False)
+    created=models.DateTimeField(auto_now_add=True)
+    disaster_code=models.CharField(max_length=2)
+    disaster_name=models.CharField(max_length=20)
+    reason=models.CharField(max_length=200)
+    no_people_affected=models.IntegerField(default=0)
+    is_viewed=models.BooleanField(default=False)
     #approved_timestamp=DateTimeField(auto_now_add=True)
 
     def __unicode__(self):

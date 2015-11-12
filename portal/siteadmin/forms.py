@@ -3,5 +3,5 @@ from models import *
 
 class CreateDisasterform(forms.ModelForm):
     class Meta:
-        model=Disaster_Description
-        exclude = ('is_confirmed','created')
+        model=Disaster_Proposal
+        exclude = ('is_confirmed','created','is_viewed')

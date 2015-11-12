@@ -6,12 +6,11 @@ from forms import CreateDisasterform
 from organisation.models import Orgs,Notifications_Org
 from siteadmin.models import Disaster_Description,Acceptance_Disaster_Org
 # Create your views here.
-
 def admin_home(request):
     """
         This function renders homepage of admin
     """
-    return render_to_response('admin_home.html')
+    return render_to_response('siteadmin/disasters.html')
 
 def create_disaster(request):
     """

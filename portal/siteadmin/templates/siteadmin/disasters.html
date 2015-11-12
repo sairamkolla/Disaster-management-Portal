@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Admin Portal</title>
+	<link rel="stylesheet" href="/static/siteadmin/css/style.css" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/siteadmin/css/bootstrap.min.css">
+  <script src="/static/siteadmin/js/jquery.min.js"></script>
+	<script src="/static/organisation/js/angularjs.js"></script>
+<script src="/static/siteadmin/js/home.js"></script>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="myctrl" ng-init="init()">
+	<div id="header">
+		<div class="logo">ADMIN PORTAL <br><br></div>
+		<ul>
+			<li class="selected">
+				<a href="/siteadmin/">Disasters</a>
+			</li>
+			<li>
+				<a href="/siteadmin/organizations/">Organizations</a>
+			</li>
+			<li>
+				<a href="/siteadmin/information/">Information</a>
+			</li>
+		</ul>
+	</div>
+	
+<div id=mainbody>
+
+
+
+<div class="col-sm-1">
+    
+
+    </div>
+    <div class="col-sm-7">
+      
+
+<br><br><br><br>
+
+<table border="3" style="background-color:#FFFFCC;border-collapse:collapse;border:3px solid  #0C0505;color:#000000;width:100%" cellpadding="5" cellspacing="10" >
+	
+	<tr>
+		<th>Disaster type</th>
+		<th>Location</th>
+		<th>SOS counter</th>
+		<th>TimeStamp</th>
+		<th>ACCCEPTANCE</th>
+	</tr>
+
+	<tr ng-repeat="disaster in disasters">
+		<td>[[ disaster.disaster_code ]]</td>
+		<td>[[ disaster.latitude]] , [[ disaster.longitude ]]</td>
+		<td>[[ disaster.no_people_affected ]]</td>
+		<td>[[ disaster.created ]]</td>
+		<td><button type="button" onclick="">ACCEPT</button><button type="button" onclick="">DECLINE</button></td>
+	</tr>
+
+</table>
+
+
+
+
+    </div>
+    <div class="col-sm-4">
+     
+<br><br><br><br>
+
+
+<table  class="orglist" border="3" style="background-color:#FFFFCC;border-collapse:collapse;border:3px solid #0C0505;color:#000000;width:100%" cellpadding="3" cellspacing="3">
+	<tr>
+		<th>ORGANIZATIONS_LIST</th>
+	</tr>
+	<tr>
+		<td>Hospital</td>
+	</tr>
+	<tr>
+		<td>Firedepartment</td>
+	</tr>
+	<tr>
+		<td>Police Office</td>
+	</tr>
+	<tr>
+		<td>NGOs</td>
+	</tr>
+	<tr>
+		<td>Police Office</td>
+	</tr>
+	<tr>
+		<td>NGOs</td>
+	</tr>
+	<tr>
+		<td>Police Office</td>
+	</tr>
+	<tr>
+		<td>NGOs</td>
+	</tr>
+
+
+
+
+</table>
+<br>
+<button type="button" class="facebook" onclick=""><B>FACEBOOK</B></button>
+<br>
+<br>
+<button type="button" class="twitter" onclick=""><B>#TWITTER<B></button>
+<br><br>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script>
+function initialize() {
+  var mapProp = {
+    center:new google.maps.LatLng(51.508742,-0.120850),
+    zoom:5,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+ <div id="googleMap" style="width:300px;height:180px;"></div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+	<div id="footer">
+		<div>
+			<ul>
+				<li class="twitter">
+					<a href="">twitter</a>
+				</li>
+				<li class="facebook">
+					<a href="">facebook</a>
+				</li>
+				<li class="googleplus">
+					<a href="">googleplus</a>
+				</li>
+			</ul>
+			<p>
+				&copy; Copyright 2015. All rights reserved
+			</p>
+		</div>
+	</div>
+
+
+
+</div>
+</body>
+</html>
