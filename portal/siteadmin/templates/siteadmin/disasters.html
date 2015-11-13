@@ -19,14 +19,14 @@
 				<a href="/siteadmin/">Disasters</a>
 			</li>
 			<li>
-				<a href="/siteadmin/organizations/">Organizations</a>
+				<a href="/siteadmin/organisations/">Organisations</a>
 			</li>
 			<li>
 				<a href="/siteadmin/information/">Information</a>
 			</li>
 		</ul>
 	</div>
-	
+	<button ng-click="test()">hello</button>
 <div id=mainbody>
 
 
@@ -55,7 +55,7 @@
 		<td>[[ disaster.latitude]] , [[ disaster.longitude ]]</td>
 		<td>[[ disaster.no_people_affected ]]</td>
 		<td>[[ disaster.created ]]</td>
-		<td><button type="button" onclick="">ACCEPT</button><button type="button" onclick="">DECLINE</button></td>
+		<td><button type="button" ng-click="approval(disaster.id,1)">ACCEPT</button><button type="button" ng-click="approval(disaster.id,0)">DECLINE</button></td>
 	</tr>
 
 </table>

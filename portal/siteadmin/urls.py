@@ -6,5 +6,7 @@ urlpatterns = patterns('',
         url(r'view_orgs/$','siteadmin.views.admin_view_org'),
         url(r'^make_disaster/$','siteadmin.views.create_disaster'),
         url(r'^notify_orgs/(?P<disaster_id>\d+)/$','siteadmin.views.notify_orgs_disaster'),
+        url(r'^organisations/$','siteadmin.views.organisations'),
+        url(r'^information/$','siteadmin.views.information'),
         )
 

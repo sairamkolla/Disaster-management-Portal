@@ -5,6 +5,7 @@ urlpatterns = patterns('',
         url(r'^getapproveddisasters/(?P<id>\d+)/(?P<disasterid>\d+)/$', 'data.views.getapproveddisasters'),
         url(r'^getnotapproveddisasters/(?P<disasterid>\d+)/$', 'data.views.getnotapproveddisasters'),
          url(r'^test/$', 'data.views.test'),
+        url(r'^approval/$','data.views.approval'),
 
 
         )

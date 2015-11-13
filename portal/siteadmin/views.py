@@ -20,7 +20,7 @@ def create_disaster(request):
         form = CreateDisasterform(request.POST)
         if form.is_valid:
             a=form.save()
-            return HttpResponseRedirect('/siteadmin/notify_orgs/%s/' % a.id)
+            return HttpResponseRedirect('/siteadmin/')
     else:
         form = CreateDisasterform()
         args={}
@@ -59,3 +59,9 @@ def admin_view_org(request):
     args={}
     args['orgs']=orgs
     return render_to_response('admin_view_org.html',args)
+
+def organisations(request):
+    return render_to_response('siteadmin/organisations.html')
+
+def information(request):
+    return render_to_response('siteadmin/information.html')

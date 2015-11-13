@@ -2,8 +2,10 @@
  * Created by sairam on 6/11/15.
  */
 
-var app = angular.module('myapp', []).config(function($interpolateProvider){
+var app = angular.module('myapp', []).config(function($interpolateProvider,$httpProvider){
     $interpolateProvider.startSymbol('[[').endSymbol(']]');
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 });
 
 app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
@@ -32,14 +34,35 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
             });
         };
 
-        $scope.approval = function(disasterid,opinion){
-
-            $http.post('http://127.0.0.1:8000/data/approval/' + disasterid + '/' + result + '/').then(
+        $scope.approval = function(id,result){
+            var data = {
+                disasterid : id,
+                opinion : result
+             };
+            $http.post('http://127.0.0.1:8000/data/approval/',data).then(
             function(response){
                 console.log(response.data);
             },function(error){
                 console.log(error);
             });
+        };
+        $scope.test = function(){
+            console.log("hello");
+            //var data = $.param({
+              //  receiver_org_id:8,
+                //message_content: "hello_kolla"
+            //});
+            var data = {
+                receiver_org_id:'8',
+                message_content: 'hello_kolla'
+            };
+            $http.post('http://127.0.0.1:8000/data/test/',data).
+            then(function(response){
+                console.log(response);
+            },function(error){
+                console.log(error);
+            }
+            );
         };
     }]);
 

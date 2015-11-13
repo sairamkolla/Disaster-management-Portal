@@ -22,16 +22,19 @@ def getnotapproveddisasters(request,disasterid):
         list_of_disasters = Disaster_Proposal.objects.filter(id__gt = disasterid, is_viewed=False)
         serializer = ProposalSerializer(list_of_disasters, many=True)
         return Response(serializer.data)
-
-def approval(request,result,disasterid):
+@api_view(['POST'])
+def approval(request):
     if request.method == 'POST':
-        disaster = Disaster_Description.objects.get(id = disasterid)
-        disaster.is_viewed = True
-        if result == 1:
-            disaster.is_confirmed = True
-        else:
-            disaster.is_confirmed = False
-        disaster.save()
+        a = json.loads(request.body)
+        #print int(a['disasterid'])
+        #print int(a['opinion'])
+        sample = Disaster_Proposal.objects.get(id = int(a['disasterid']))
+        sample.is_viewed = True
+        if int(a['opinion']) == 1:
+            disaster = Disaster_Description(no_people_affected = sample.no_people_affected,latitude = sample.latitude, longitude = sample.longitude,disaster_code = sample.disaster_code, disaster_name = sample.disaster_name,reason = sample.reason)
+            sample.is_confirmed = True
+            disaster.save()
+        sample.save()
         return Response({"response":"created"},status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
