@@ -43,6 +43,7 @@ INSTALLED_APPS = (
         'password_reset',
         'rest_framework',
         'corsheaders',
+        'data',
         )
 MIDDLEWARE_CLASSES = (
         'django.contrib.sessions.middleware.SessionMiddleware',
@@ -57,6 +58,7 @@ MIDDLEWARE_CLASSES = (
         )
 
 ROOT_URLCONF = 'portal.urls'
+
 
 TEMPLATES = [
         {

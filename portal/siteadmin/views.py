@@ -64,4 +64,4 @@ def organisations(request):
     return render_to_response('siteadmin/organisations.html')
 
 def information(request):
-    return render_to_response('siteadmin/information.html')
+    return render_to_response('siteadmin/organisations_view.html')

@@ -59,4 +59,12 @@ def test(request):
 
         message.save()
         return Response({"response":"created"},status=status.HTTP_201_CREATED)
+@api_view(['POST'])
+def getorglist(request):
+    if request.method == 'POST':
+        a = json.loads(request.body)
+        keyword = str(a['keyword'])
+        org_list = Orgs.objects.filter(tags__contains =keyword)
+        serializer = OrgListSerializer(org_list, many = True)
+    return Response(serializer.data)
 

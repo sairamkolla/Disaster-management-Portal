@@ -13,6 +13,7 @@ class Orgs(models.Model):
     longitude=models.CharField(max_length=15)
     created=models.DateTimeField(auto_now_add=True)
     tags=models.CharField(max_length=100,null=True)
+    #hosp,pol,fire,ngo
     def __unicode__(self):
         return unicode(self.name_of_org)
 

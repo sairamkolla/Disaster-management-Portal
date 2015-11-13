@@ -69,6 +69,20 @@ font-size:30px;
 	text-decoration: none;
 	text-transform: uppercase;
 }
+#header1 ul li span {
+	background: url(/static/siteadmin/images/menu-border.gif) no-repeat bottom right;
+	color: #93958b;
+	display: block;
+	font-size: 14px;
+	height: 42px;
+	letter-spacing: 1px;
+	line-height: 42px;
+	margin: 0;
+	padding: 0 60px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+}
 #header1 ul li a {
 	background-color:#020202;
 	color: #93958b;

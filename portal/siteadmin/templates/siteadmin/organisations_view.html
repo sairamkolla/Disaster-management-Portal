@@ -3,14 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Admin Portal</title>
-	<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="/static/siteadmin/css/style.css" type="text/css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="bootstrap.min.css">
-	<script src="jquery.min.js"></script>
-	<script src="bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/static/siteadmin/css/bootstrap.min.css">
+  <script src="/static/siteadmin/js/jquery.min.js"></script>
+	<script src="/static/organisation/js/angularjs.js"></script>
+	<script src="/static/siteadmin/js/orgs.js"></script>
 
 </head>
-<body>
+<body ng-app="myapp">
+    <div ng-controller="myctrl" ng-init="init()">
+
 	<div id="header">
 <div class="logo">ADMIN PORTAL <br><br></div>
 		<ul>
@@ -76,16 +79,19 @@
 <div id="header1">
 		<ul>
 			<li class="selected">
-				<a href="hospital.html">Hospitals</a>
+				<span ng-click="set('hos')">Hospitals</span>
 			</li>
-			<li>
-				<a href="fire.html">Firedepartment</a>
+
+			<li class="selected">
+				<span ng-click="set('pol')">Police</span>
 			</li>
-			<li>
-				<a href="police.html">Police Offices</a>
+
+			<li class="selected">
+				<span ng-click="set('fire')">Firestations</span>
 			</li>
-			<li>
-				<a href="ngo.html">NGOs</a>
+
+			<li class="selected">
+				<span ng-click="set('ngo')">NGO's</span>
 			</li>
 		</ul>
 	</div>
@@ -95,23 +101,8 @@
 
 
 <table border="1" style="background-color:#FFFFCC;border-collapse:collapse;border:2px solid #0C0505;color:#000000;width:100%" cellpadding="3" cellspacing="3">
-	<tr>
-		<td>Table Cell</td>
-	</tr>
-	<tr>
-		<td>Table Cell</td>
-	</tr>
-	<tr>
-		<td>Table Cell</td>
-	</tr>
-	<tr>
-		<td>Table Cell</td>
-	</tr>
-	<tr>
-		<td>Table Cell</td>
-	</tr>
-	<tr>
-		<td>Table Cell</td>
+	<tr ng-repeat = "org in orgs">
+		<td>[[ org.name_of_org ]]</td>
 	</tr>
 </table>
 
@@ -143,6 +134,8 @@
 				&copy; Copyright 2015. All rights reserved
 			</p>
 	</div>
-</div>	
+</div>
+ </div>
+	</div>
 </body>
 </html>

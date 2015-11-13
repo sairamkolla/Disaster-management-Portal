@@ -10,6 +10,11 @@ class OrgProfileSerializer(serializers.ModelSerializer):
         fields= ("userid","org_head","org_strength","name_of_org","latitude","longitude","tags")
 
 
+class OrgListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orgs
+        fields= ("id","name_of_org")
+
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Messages_Orgs
