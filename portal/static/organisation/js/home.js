@@ -31,7 +31,7 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
         };
         $scope.getdisasters = function(){
             //console.log($scope.id)
-            $http.get('http://127.0.0.1:8000/data/getdisasters/'+ $scope.id +'/'+ $scope.disasterid + '/').
+            $http.get('http://127.0.0.1:8000/data/getapproveddisasters/'+ $scope.id +'/'+ $scope.disasterid + '/').
             then(function(response) {
                 var temp = response.data.length
                 for(i=0;i<temp;i++){
@@ -59,6 +59,16 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
             });
 
 
+        };
+
+        $scope.test = function(){
+            console.log('inside test function');
+            $http.post('http://127.0.0.1:8000/data/test/',{'message_content':$scope.testdata,'receiver_org_id':5}).
+            then(function(response){
+                console.log(response)
+            },function(error){
+            console.log(error);
+            });
         };
     }]);
 
