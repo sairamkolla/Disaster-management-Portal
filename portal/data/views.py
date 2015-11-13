@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from collections import OrderedDict
 from rest_framework import status
+import json
 # Create your views here.
 
 @api_view(['GET','POST'])
@@ -49,8 +50,10 @@ def getmessages(request,id,messageid):
 @api_view(['POST','PUT'])
 def test(request):
     if request.method == 'POST':
-        message = Messages_Orgs(sender_org_id=Orgs.objects.get(userid=5),receiver_org_id=Orgs.objects.get(id=int(request.POST['receiver_org_id'])),message_content = request.POST['message_content'])
-        print int(request.POST['receiver_org_id'])
+        a = json.loads(request.body)
+        message = Messages_Orgs(sender_org_id=Orgs.objects.get(userid=5),receiver_org_id=Orgs.objects.get(userid=int(a['receiver_org_id'])),message_content = str(a['message_content']))
+        #print int(request.POST.get('receiver_org_id',False))
+
         message.save()
         return Response({"response":"created"},status=status.HTTP_201_CREATED)
 
