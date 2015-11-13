@@ -34,7 +34,7 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
             });
         };
 
-        $scope.approval = function(id,result){
+        $scope.approval = function(id,result,disaster){
             var data = {
                 disasterid : id,
                 opinion : result
@@ -45,6 +45,11 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
             },function(error){
                 console.log(error);
             });
+
+            /////removing the proposal from the list
+
+            var index = $scope.disasters.indexOf(disaster);
+            $scope.disasters.splice(index,1);
         };
         $scope.test = function(){
             console.log("hello");
