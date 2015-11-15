@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from org_models import *
-from siteadmin_models import *
+from models import *
 
 
 # Organisation related serializers start here

@@ -1,6 +1,5 @@
-from django.shortcuts import render
 from data.serializers import *
-from org_models import *
+from models import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from collections import OrderedDict
