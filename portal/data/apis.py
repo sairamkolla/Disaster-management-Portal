@@ -8,7 +8,7 @@ import json
 # Create your views here.
 
 @api_view(['GET','POST'])
-def GetApprovedDisasters(request,id,disasterid):
+def GetApprovedDisasters(request,id,di4sasterid):
     if request.method == 'GET':
         list_of_disasters = DisasterDescription.objects.filter(id__gt = disasterid)
         serializer = DisasterSerializer(list_of_disasters, many=True)
@@ -57,12 +57,20 @@ def Test(request):
         message.save()
         return Response({"response":"Message is created"},status=status.HTTP_201_CREATED)
 
-@api_view(['POST'])
+@api_view(['GET','POST'])
 def GetOrgList(request):
+    """
+    :param request: keyword,istag
+    :return:
+    """
     if request.method == 'POST':
         postdata = json.loads(request.body)
         keyword = str(postdata['keyword'])
-        org_list = Orgs.objects.filter(tags__contains =keyword)
+        is_tag = int(postdata['istag'])
+        if is_tag == 1 :
+            org_list = Orgs.objects.filter(tags__contains =keyword)
+        else :
+            org_list = Orgs.objects.filter(name_of_org__contains = keyword)
         serializer = OrgListSerializer(org_list, many = True)
     return Response(serializer.data)
 
