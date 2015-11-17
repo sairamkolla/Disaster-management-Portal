@@ -11,6 +11,7 @@ urlpatterns = patterns('',
                        url(r'^login/$', 'data.userapis.login', name='login'),
                        url(r'^logout/$', 'data.userapis.logout', name='logout'),
                        url(r'^register/$', 'data.userapis.register', name='register'),
-                       url(r'^fill_profile/$', 'data.userapis.fill_profile', name='fill_profile'),
-
+                        url(r'^testlogout/$','data.userapis.logout',name='logout'),
+                       url(r'^GetUserDetails/$','data.userapis.GetUserDetails'),
+                       url(r'^CheckLogin/$','data.userapis.CheckLogin'),
                        )

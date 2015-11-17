@@ -99,7 +99,7 @@ class DisasterProposal(models.Model):
     created = models.DateTimeField(auto_now_add = True)
     disaster_code = models.CharField(max_length=2)
     disaster_name = models.CharField(max_length=20)
-    reason = models.CharField(max_length=200)
+    reason = models.CharField(max_length=200,default = "NotKnown")
     no_people_affected = models.IntegerField(default=0)
     is_viewed = models.BooleanField(default=False)
 

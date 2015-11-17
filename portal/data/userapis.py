@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import json
-
+from serializers import OrgProfileSerializer
 
 @api_view(['POST'])
 def login(request):
@@ -13,12 +13,14 @@ def login(request):
         return Response({"response": "AlreadyLoggedIn :) "})
     else:
         if request.method == 'POST':
-            username = request.POST.get('username', '')
-            password = request.POST.get('password', '')
+            postdata = json.loads(request.body)
+            username = str(postdata['username'])
+            password = str(postdata['password'])
             user = auth.authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                return Response({"response": request.user.id})
+                print "Sucessfully authenticated"
+                return Response({"response": user.id})
             else:
                 return Response({"response": "Provided Credentials are incorrect  :) "})
 
@@ -101,4 +103,18 @@ def register(request):
 @api_view(['GET'])
 def logout(request):
     auth.logout(request)
+    print "loggedout successfully"
     return Response({"response": "Logout Sucessfull"})
+
+@api_view(['GET'])
+def GetUserDetails(request):
+    organisation = Orgs.objects.get(user = request.user)
+    serializer = OrgProfileSerializer(organisation)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def CheckLogin(request):
+    if request.user :
+        Response({"response":"Logged in"})
+    else :
+        Response({"response":"LogIn again"})
