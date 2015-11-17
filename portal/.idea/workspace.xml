@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb57a77d-dc5c-487d-9a9b-b90ea67e4690" name="Default" comment="">
+<<<<<<< api
       <change type="DELETED" beforePath="$PROJECT_DIR$/organisation/templates/organisation/.test.html.swp" afterPath="" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/siteadmin/templates/siteadmin/hospital.html" afterPath="$PROJECT_DIR$/siteadmin/templates/siteadmin/organisations_view.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../designs/initial_db_design.mwb" afterPath="$PROJECT_DIR$/../designs/initial_db_design.mwb" />
@@ -21,6 +22,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteadmin/templates/siteadmin/fire.html" afterPath="$PROJECT_DIR$/siteadmin/templates/siteadmin/fire.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteadmin/views.py" afterPath="$PROJECT_DIR$/siteadmin/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/siteadmin/css/style.css" afterPath="$PROJECT_DIR$/static/siteadmin/css/style.css" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+>>>>>>> local
     </list>
     <ignored path="portal.iws" />
     <ignored path=".idea/workspace.xml" />

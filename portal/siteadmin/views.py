@@ -4,7 +4,6 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.core.context_processors import csrf
 from forms import CreateDisasterform
 from organisation.models import Orgs,Notifications_Org
-from siteadmin.models import Disaster_Description,Acceptance_Disaster_Org
 # Create your views here.
 def admin_home(request):
     """
