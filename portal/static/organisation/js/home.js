@@ -16,7 +16,7 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
             $scope.disasters = [];
             $scope.messageid=0
             $scope.disasterid=0
-            $http.get('http://127.0.0.1:8000/orgs/getuserid/').then(
+            $http.get('http://127.0.0.1:8000/orgs/GetUserId/').then(
                 function(response){
                     $scope.id = response.data.id
                     console.log('useris fetched')

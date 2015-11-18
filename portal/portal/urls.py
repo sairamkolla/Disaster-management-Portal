@@ -18,11 +18,9 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^$','authentication.views.login'),
-    url(r'^best/$','organisation.views.best'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^data/', include('data.urls')),
     url(r'^accounts/', include('authentication.urls')),
-    url(r'^password_reset/',include('password_reset.urls')),
     url(r'^orgs/', include('organisation.urls')),
     url(r'^siteadmin/',include('siteadmin.urls')),
     url(r'^api-auth/',include('rest_framework.urls',namespace='rest_framework')),

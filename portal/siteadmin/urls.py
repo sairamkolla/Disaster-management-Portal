@@ -1,12 +1,9 @@
 from django.conf.urls import url,include,patterns
 
 urlpatterns = patterns('',
-        url(r'^$','siteadmin.views.admin_home'),
-        url(r'^disaster_orgs/$','siteadmin.views.disaster_orgs'),
-        url(r'view_orgs/$','siteadmin.views.admin_view_org'),
-        url(r'^make_disaster/$','siteadmin.views.create_disaster'),
-        url(r'^notify_orgs/(?P<disaster_id>\d+)/$','siteadmin.views.notify_orgs_disaster'),
-        url(r'^organisations/$','siteadmin.views.organisations'),
-        url(r'^information/$','siteadmin.views.information'),
+        url(r'^$','siteadmin.views.SiteAdminHome'),
+        url(r'^make_disaster/$','siteadmin.views.CreateDisaster'),
+        url(r'^organisations/$','siteadmin.views.Organisations'),
+        url(r'^information/$','siteadmin.views.Information'),
         )
 

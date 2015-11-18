@@ -108,7 +108,6 @@ class DisasterProposal(models.Model):
 class DecisionsOrgs(models.Model):
     disaster = models.ForeignKey(DisasterDescription)
     is_accepted = models.IntegerField(default=0)
-    seen = models.BooleanField(default=False)
     org = models.ForeignKey(Orgs)
     created = models.DateTimeField(auto_now_add = True)
 

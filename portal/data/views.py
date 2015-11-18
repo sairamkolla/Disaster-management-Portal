@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from data.serializers import *
-from organisation.models import *
-from authentication.models import *
+from models import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from collections import OrderedDict
@@ -12,14 +11,20 @@ import json
 @api_view(['GET','POST'])
 def getapproveddisasters(request,id,disasterid):
     if request.method == 'GET':
-        list_of_disasters = Disaster_Description.objects.filter(id__gt = disasterid)
+        list_of_disasters = DisasterDescription.objects.filter(id__gt = disasterid)
         serializer = DisasterSerializer(list_of_disasters, many=True)
+        for disaster in serializer.data :
+            x = DecisionsOrgs.objects.filter(org = Orgs.objects.get(userid = id) , disaster = DisasterDescription.objects.get(id = disaster.items()[0][1]))
+            if len(x) == 1 :
+                disaster.__setitem__("value",x[0].is_accepted)
+            else:
+                disaster.__setitem__("value",2)
         return Response(serializer.data)
 
 @api_view(['GET','POST'])
 def getnotapproveddisasters(request,disasterid):
     if request.method == 'GET':
-        list_of_disasters = Disaster_Proposal.objects.filter(id__gt = disasterid, is_viewed=False)
+        list_of_disasters = DisasterProposal.objects.filter(id__gt = disasterid, is_viewed=False)
         serializer = ProposalSerializer(list_of_disasters, many=True)
         return Response(serializer.data)
 @api_view(['POST'])
@@ -28,10 +33,10 @@ def approval(request):
         a = json.loads(request.body)
         #print int(a['disasterid'])
         #print int(a['opinion'])
-        sample = Disaster_Proposal.objects.get(id = int(a['disasterid']))
+        sample = DisasterProposal.objects.get(id = int(a['disasterid']))
         sample.is_viewed = True
         if int(a['opinion']) == 1:
-            disaster = Disaster_Description(no_people_affected = sample.no_people_affected,latitude = sample.latitude, longitude = sample.longitude,disaster_code = sample.disaster_code, disaster_name = sample.disaster_name,reason = sample.reason)
+            disaster = DisasterDescription(no_people_affected = sample.no_people_affected,latitude = sample.latitude, longitude = sample.longitude,disaster_code = sample.disaster_code, disaster_name = sample.disaster_name,reason = sample.reason)
             sample.is_confirmed = True
             disaster.save()
         sample.save()
@@ -44,17 +49,18 @@ def getmessages(request,id,messageid):
     """
     if request.method == 'GET':
         org = Orgs.objects.get(userid = id)
-        messages = Messages_Orgs.objects.filter(receiver_org_id = org, id__gt = messageid)
+        messages = MessagesOrgs.objects.filter(receiver_org_id = org, id__gt = messageid)
         serializer = MessageSerializer(messages, many = True)
         for x in serializer.data:
             x.__setitem__("sender",Orgs.objects.get(id=x.items()[1][1]).name_of_org)
-            del x['sender_org_id']
+            del x['sender_org']
         return Response(serializer.data)
 @api_view(['POST','PUT'])
-def test(request):
+def CreateMessage(request):
     if request.method == 'POST':
         a = json.loads(request.body)
-        message = Messages_Orgs(sender_org_id=Orgs.objects.get(userid=5),receiver_org_id=Orgs.objects.get(userid=int(a['receiver_org_id'])),message_content = str(a['message_content']))
+        print "hello here"
+        message = MessagesOrgs(sender_org=Orgs.objects.get(userid=request.user.id),receiver_org=Orgs.objects.get(userid=int(a['receiver'])),message_content = str(a['messagecontent']))
         #print int(request.POST.get('receiver_org_id',False))
 
         message.save()
@@ -64,7 +70,47 @@ def getorglist(request):
     if request.method == 'POST':
         a = json.loads(request.body)
         keyword = str(a['keyword'])
-        org_list = Orgs.objects.filter(tags__contains =keyword)
-        serializer = OrgListSerializer(org_list, many = True)
+        if 'tag' in a.keys():
+            org_list = Orgs.objects.filter(tags__contains =keyword)
+        else:
+            org_list = Orgs.objects.filter(name_of_org__contains =keyword)
+
+        serializer = OrgProfileSerializer(org_list, many = True)
+        print serializer.data
     return Response(serializer.data)
+
+@api_view(['POST'])
+def DecisionOrgs(request):
+    postdata = json.loads(request.body)
+    disasterid = int(postdata['disasterid'])
+    id = int(postdata['userid'])
+    decision = int(postdata['decision'])
+    if len(DecisionsOrgs.objects.filter(disaster = DisasterDescription.objects.filter(id = disasterid),org = Orgs.objects.get(userid = id))) == 1:
+        print "exists"
+        new=0
+    else:
+        print "new"
+        new=1
+
+    if decision == 1 :
+        if new == 1:
+            x = DecisionsOrgs(disaster = DisasterDescription.objects.get(id = disasterid),org = Orgs.objects.get(userid = id),is_accepted = True)
+        else:
+            x = DecisionsOrgs.objects.filter(disaster = DisasterDescription.objects.filter(id = disasterid),org = Orgs.objects.get(userid = id))[0]
+            x.is_accepted = True
+    else :
+        if new == 1:
+            x = DecisionsOrgs(disaster = DisasterDescription.objects.get(id = disasterid),org = Orgs.objects.get(userid = id),is_accepted = False)
+        else:
+            x = DecisionsOrgs.objects.filter(disaster = DisasterDescription.objects.filter(id = disasterid),org = Orgs.objects.get(userid = id))[0]
+            x.is_accepted = False
+    x.save()
+    return Response({"response":"successfull"})
+
+@api_view(['GET','POST'])
+def GetUserDetails(request):
+    if request.method == 'GET':
+        orgdetails = Orgs.objects.get(userid = request.user.id)
+        serializer = OrgProfileSerializer(orgdetails)
+        return Response(serializer.data)
 
