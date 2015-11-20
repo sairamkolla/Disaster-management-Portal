@@ -16,6 +16,7 @@ class OrgProfileSerializer(serializers.ModelSerializer):
     def timeconvert(self,object):
         return object.created.strftime("%B %d, %Y ")
 
+
     class Meta:
         model = Orgs
         fields= ("userid","orghead","orgstrength","orgname","latitude","longitude","tags","username","since")
@@ -47,4 +48,4 @@ class DisasterSerializer(serializers.ModelSerializer):
 class ProposalSerializer(serializers.ModelSerializer):
     class Meta:
         model = DisasterDescription
-        fields = ("id","created","disaster_name","disaster_code","reason","no_people_affected","latitude","longitude")
+        fields = ("id","created","disaster_name","disaster_code","reason","no_of_sos_received","latitude","longitude")

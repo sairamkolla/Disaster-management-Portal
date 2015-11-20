@@ -1,5 +1,5 @@
 /**
- * Created by sairam on 6/11/15.
+ * Created by sairamkolla on 6/11/15.
  */
 
 var app = angular.module('myapp', []).config(function($interpolateProvider){

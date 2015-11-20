@@ -31,8 +31,10 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
             $http.get('http://127.0.0.1:8000/orgs/getuserid/').then(
                 function(response){
                     $scope.id = response.data.id
-                    console.log('useris fetched')
-                    console.log($scope.id)
+                    console.log('useris fetched');
+                    console.log($scope.id);
+
+                    $scope.getmessages();
                 }, function(error){
                     console.log(error);
                 });

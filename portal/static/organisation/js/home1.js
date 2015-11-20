@@ -33,12 +33,16 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
                     $scope.id = response.data.id
                     console.log('useris fetched')
                     console.log($scope.id)
+                    $scope.getdisasters();
+                    $scope.getmessages();
                 }, function(error){
                     console.log(error);
                 });
 
             $scope.getuserdetails();
             console.log('timer running')
+
+            console.log('dopne');
             $interval($scope.getmessages,5000);
             $interval($scope.getdisasters,10000);
 

@@ -5,5 +5,8 @@ urlpatterns = patterns('',
         url(r'^make_disaster/$','siteadmin.views.CreateDisaster'),
         url(r'^organisations/$','siteadmin.views.Organisations'),
         url(r'^information/$','siteadmin.views.Information'),
+        url(r'^approvals/$','siteadmin.views.Approvals'),
+        url(r'^orgsearch/$','siteadmin.views.OrgSearch')
+
         )
 

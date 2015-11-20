@@ -1,6 +1,19 @@
-<form action='/siteadmin/make_disaster/' enctype="multipart/form-data" method="post"> {% csrf_token %}
-<ul>
-	{{ form.as_ul }}
-</ul>
-<input type="submit" name="submit" value="create the disaster" >
+<link rel="stylesheet" href="/static/organisation/new/bootstrap/css/bootstrap.min.css">
+
+<form class="form-contact" action="" method="POST">
+{% csrf_token %}
+{% for field in form %}
+<fieldset class="form-group">
+  <label class="control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+    <div class="form-control">
+      <input type="text" class="form-control"
+        name="{{ field.name }}"
+        id="id_{{ field.name }}"
+        value="{{ field.value }}" >
+		{{ field.errors }}
+        <p class="help-text">{{ field.help_text }} </p>
+       </div>
+</fieldset>
+{% endfor %}
+   <input type="submit" value="Submit"  class="btn btn-primary">
 </form>

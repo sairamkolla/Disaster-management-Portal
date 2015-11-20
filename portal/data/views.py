@@ -49,6 +49,7 @@ def getmessages(request,id,messageid):
     """
     if request.method == 'GET':
         org = Orgs.objects.get(userid = id)
+
         messages = MessagesOrgs.objects.filter(receiver_org_id = org, id__gt = messageid)
         serializer = MessageSerializer(messages, many = True)
         for x in serializer.data:
@@ -60,6 +61,7 @@ def CreateMessage(request):
     if request.method == 'POST':
         a = json.loads(request.body)
         print "hello here"
+
         message = MessagesOrgs(sender_org=Orgs.objects.get(userid=request.user.id),receiver_org=Orgs.objects.get(userid=int(a['receiver'])),message_content = str(a['messagecontent']))
         #print int(request.POST.get('receiver_org_id',False))
 
@@ -114,3 +116,47 @@ def GetUserDetails(request):
         serializer = OrgProfileSerializer(orgdetails)
         return Response(serializer.data)
 
+
+@api_view(['GET'])
+def AdminStatistics(request):
+    TotalManPower = 0
+    for org in Orgs.objects.all():
+        TotalManPower += org.org_strength
+    TotalDisasters = len(DisasterProposal.objects.all())
+    Fake = len(DisasterProposal.objects.filter(is_viewed = True,is_confirmed = False))
+    Original = len(DisasterProposal.objects.filter(is_viewed = True,is_confirmed = True))
+    TotalOrgs = len(Orgs.objects.all())
+    Hospitals = len(Orgs.objects.filter(tags__contains = 'hospital'))
+    Fire = len(Orgs.objects.filter(tags__contains = 'fire'))
+    Ngo = len(Orgs.objects.filter(tags__contains = 'ngo'))
+    Police = len(Orgs.objects.filter(tags__contains = 'police'))
+
+    return Response({"TotalManPower":TotalManPower,"TotalDisasters":TotalDisasters,"Fake":Fake,"Original":Original,"TotalOrgs":TotalOrgs,"Hospitals":Hospitals,"Fire":Fire,"Ngo":Ngo,"Police":Police})
+
+
+@api_view(['POST','GET'])
+def GetAcceptedDisasters(request):
+    print json.loads(request.body)
+    userid = json.loads(request.body)['userid']
+    accepted = DecisionsOrgs.objects.filter(org__userid = userid ,is_accepted =1 ).values_list('disaster_id',flat=True)
+    disasters = DisasterDescription.objects.filter(id__in = accepted)
+    serializer = DisasterSerializer(disasters,many=True)
+    return Response(serializer.data)
+
+@api_view(['POST','GET'])
+def NotGetAcceptedDisasters(request):
+
+    userid = json.loads(request.body)['userid']
+    notaccepted = DecisionsOrgs.objects.filter(org__userid = userid,is_accepted =0 ).values_list('disaster_id',flat=True)
+    disasters = DisasterDescription.objects.filter(id__in = notaccepted)
+    serializer = DisasterSerializer(disasters,many=True)
+    return Response(serializer.data)
+
+@api_view(['POST','GET'])
+def NotOpinionDisasters(request):
+
+    userid = json.loads(request.body)['userid']
+    opinion = DecisionsOrgs.objects.filter(org__userid = userid).values_list('disaster_id',flat=True)
+    disasters = DisasterDescription.objects.exclude(id__in = opinion)
+    serializer = DisasterSerializer(disasters,many=True)
+    return Response(serializer.data)

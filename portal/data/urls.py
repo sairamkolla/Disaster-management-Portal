@@ -8,7 +8,10 @@ urlpatterns = patterns('',
         url(r'^approval/$','data.views.approval'),
         url(r'orglist/$','data.views.getorglist'),
         url(r'DecisionOrgs','data.views.DecisionOrgs'),
-        url(r'^GetUserDetails/$','data.views.GetUserDetails')
-
+        url(r'^GetUserDetails/$','data.views.GetUserDetails'),
+        url(r'^statistics/$','data.views.AdminStatistics'),
+        url(r'^GetAcceptedDisasters/$','data.views.GetAcceptedDisasters'),
+        url(r'^NotGetAcceptedDisasters/$','data.views.NotGetAcceptedDisasters'),
+        url(r'^NotOpinionDisasters/$','data.views.NotOpinionDisasters'),
 
         )
