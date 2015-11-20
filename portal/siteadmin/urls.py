@@ -6,7 +6,8 @@ urlpatterns = patterns('',
         url(r'^organisations/$','siteadmin.views.Organisations'),
         url(r'^information/$','siteadmin.views.Information'),
         url(r'^approvals/$','siteadmin.views.Approvals'),
-        url(r'^orgsearch/$','siteadmin.views.OrgSearch')
+        url(r'^orgsearch/$','siteadmin.views.OrgSearch'),
+        url(r'^disastersearch/$','siteadmin.views.DisasterSearch'),
 
         )
 

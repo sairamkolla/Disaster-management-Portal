@@ -52,3 +52,6 @@ def Approvals(request):
 
 def OrgSearch(request):
     return render_to_response('siteadmin/adminorgsearch.html')
+
+def DisasterSearch(request):
+    return render_to_response('siteadmin/admindisastersearch.html')

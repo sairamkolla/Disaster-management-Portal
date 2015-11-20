@@ -116,6 +116,7 @@ def GetUserDetails(request):
         serializer = OrgProfileSerializer(orgdetails)
         return Response(serializer.data)
 
+# Api's made for admin
 
 @api_view(['GET'])
 def AdminStatistics(request):
@@ -159,4 +160,45 @@ def NotOpinionDisasters(request):
     opinion = DecisionsOrgs.objects.filter(org__userid = userid).values_list('disaster_id',flat=True)
     disasters = DisasterDescription.objects.exclude(id__in = opinion)
     serializer = DisasterSerializer(disasters,many=True)
+    return Response(serializer.data)
+
+@api_view(['POST','GET'])
+def GetAcceptedOrgs(request):
+    print json.loads(request.body)
+    disasterid = json.loads(request.body)['disasterid']
+    accepted = DecisionsOrgs.objects.filter(disaster__id = disasterid,is_accepted =1 ).values_list('org__userid',flat=True)
+    orgslist = Orgs.objects.filter(userid__in = accepted)
+    serializer = OrgProfileSerializer(orgslist,many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST','GET'])
+def NotGetAcceptedOrgs(request):
+    print json.loads(request.body)
+    disasterid = json.loads(request.body)['disasterid']
+    notaccepted = DecisionsOrgs.objects.filter(disaster__id = disasterid,is_accepted =0 ).values_list('org__userid',flat=True)
+    orgslist = Orgs.objects.filter(userid__in = notaccepted)
+    serializer = OrgProfileSerializer(orgslist,many=True)
+    return Response(serializer.data)
+
+@api_view(['POST','GET'])
+def NotOpinionOrgs(request):
+
+    disasterid = json.loads(request.body)['disasterid']
+    opinion = DecisionsOrgs.objects.filter(disaster__id = disasterid).values_list('org__userid',flat=True)
+    orgslist = Orgs.objects.exclude(userid__in = opinion)
+    serializer = OrgProfileSerializer(orgslist,many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def getdisasterlist(request):
+    if request.method == 'POST':
+        a = json.loads(request.body)
+        keyword = str(a['keyword'])
+        if 'code' in a.keys():
+            disaster_list = DisasterDescription.objects.filter(disaster_code__contains =keyword)
+        else:
+            disaster_list = DisasterDescription.objects.filter(disaster_name__contains =keyword)
+
+        serializer = DisasterSerializer(disaster_list, many = True)
     return Response(serializer.data)
