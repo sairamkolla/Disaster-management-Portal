@@ -17,4 +17,8 @@ urlpatterns = patterns('',
         url(r'^GetAcceptedOrgs/$','data.views.GetAcceptedOrgs'),
         url(r'^NotGetAcceptedOrgs/$','data.views.NotGetAcceptedOrgs'),
         url(r'^NotOpinionOrgs/$','data.views.NotOpinionOrgs'),
+        url(r'^AddNumber/$','data.views.AddNumber'),
+        url(r'^AddEmail/$','data.views.AddEmail'),
+        url(r'^GetNumbers/$','data.views.GetNumbers'),
+        url(r'^GetEmails/$','data.views.GetEmails'),
         )

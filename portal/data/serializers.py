@@ -49,3 +49,24 @@ class ProposalSerializer(serializers.ModelSerializer):
     class Meta:
         model = DisasterDescription
         fields = ("id","created","disaster_name","disaster_code","reason","no_of_sos_received","latitude","longitude")
+
+class ContactNumberSerializer(serializers.ModelSerializer):
+    userid = serializers.SerializerMethodField('getuserid')
+    number = serializers.CharField(source='contact_number')
+    def getuserid(self,obj):
+        return int(obj.org.userid)
+
+    class Meta:
+        model = ContactNumbersOrgs
+        fields = ('userid','number')
+
+class ContactMailSerializer(serializers.ModelSerializer):
+    userid = serializers.SerializerMethodField('getuserid')
+    email = serializers.CharField(source='contact_mail')
+
+    def getuserid(self,obj):
+        return int(obj.org.userid)
+
+    class Meta:
+        model = ContactNumbersOrgs
+        fields = ('userid','email')

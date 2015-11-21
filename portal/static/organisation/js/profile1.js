@@ -14,6 +14,8 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
             $http.get('/data/GetUserDetails/').
                 then(function(success){
                     $scope.userdetails = success.data;
+                    $scope.getnumbers();
+                    $scope.getmails();
                     console.log($scope.userdetails.username)
                 },function(error){
                     console.log(error);
@@ -40,9 +42,11 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
                 });
 
             $scope.getuserdetails();
+
             console.log('timer running')
             $interval($scope.getmessages,5000);
             $interval($scope.getdisasters,10000);
+
 
         };
 
@@ -63,6 +67,32 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
 
 
         };
+
+        $scope.getnumbers = function(){
+            var data = {
+                userid:$scope.userdetails['userid']
+            };
+            $http.post('http://127.0.0.1:8000/data/GetNumbers/',data).
+            then(function(success){
+                $scope.numbers = success.data;
+            },function(error){
+                console.log(error)
+            });
+
+        };
+
+        $scope.getmails = function(){
+            var data = {
+                userid:$scope.userdetails['userid']
+            };
+            $http.post('http://127.0.0.1:8000/data/GetEmails/',data).
+            then(function(success){
+                $scope.emails = success.data;
+            },function(error){
+                console.log(error)
+            });
+
+        }
 
 
         $scope.GetSearchOrgs = function(){
@@ -117,12 +147,45 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval',
                 },function(error){
                     console.log(error);
                 });
-
-
             }
+        };
 
-        }
+        $scope.addnumber = function(){
+            if($scope.enternumber!=''){
+                var data = {
+                    number:$scope.enternumber,
+                    userid:$scope.userdetails['userid']
+                };
+                $http.post('http://127.0.0.1:8000/data/AddNumber/',data).
+                then(function(success){
+                    console.log("Number Added");
+                    $scope.enternumber='';
+                    $scope.getnumbers();
+                },function(error){
+                    console.log("Number Not Added")
+                    $scope.enternumber=''
+                });
+            }
+        };
 
+        $scope.addemail = function(){
+            if($scope.enteremail!=''){
+                var data = {
+                    email:$scope.enteremail,
+                    userid:$scope.userdetails['userid']
+                };
+                $http.post('http://127.0.0.1:8000/data/AddEmail/',data).
+                then(function(success){
+                    console.log("Email Added");
+                    $scope.enteremail=''
+                    $scope.getmails();
+
+                },function(error){
+                    console.log("Email Not Added")
+                    $scope.enteremail=''
+                });
+            }
+        };
     }]);
 
 

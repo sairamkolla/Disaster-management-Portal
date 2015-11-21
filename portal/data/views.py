@@ -202,3 +202,36 @@ def getdisasterlist(request):
 
         serializer = DisasterSerializer(disaster_list, many = True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def AddNumber(request):
+    if request.method == 'POST':
+        postdata = json.loads(request.body)
+        new = ContactNumbersOrgs(org=Orgs.objects.get(userid = int(postdata['userid'])),contact_number = str(postdata['number']))
+        new.save()
+        return Response({"response":"created"})
+
+@api_view(['POST'])
+def AddEmail(request):
+    if request.method == 'POST':
+        postdata = json.loads(request.body)
+        new = ContactMailsOrgs(org=Orgs.objects.get(userid = int(postdata['userid'])),contact_mail = str(postdata['email']))
+        new.save()
+        return Response({"response":"created"})
+
+@api_view(['POST'])
+def GetNumbers(request):
+    if request.method == 'POST':
+        postdata = json.loads(request.body)
+        numbers = ContactNumbersOrgs.objects.filter(org__userid = int(postdata['userid']))
+        serializer = ContactNumberSerializer(numbers,many = True)
+        return Response(serializer.data)
+
+
+@api_view(['POST'])
+def GetEmails(request):
+    if request.method == 'POST':
+        postdata = json.loads(request.body)
+        mails = ContactMailsOrgs.objects.filter(org__userid = int(postdata['userid']))
+        serializer = ContactMailSerializer(mails,many = True)
+        return Response(serializer.data)
