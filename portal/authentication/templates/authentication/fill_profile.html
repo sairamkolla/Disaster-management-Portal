@@ -2,13 +2,65 @@
 <html>
 	<head>
 		<title>Disaster Response | register</title>
-		<link rel="stylesheet" href="/static/authentication/css/animation1.css" type="text/css" media="all">
+				  <link rel="stylesheet" href="/static/organisation/new/bootstrap/css/bootstrap.min.css">
+			<script src="/static/organisation/new/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/organisation/new/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+		  <script src="/static/organisation/js/angularjs.js"></script>
+		  <script src="/static/authentication/js/fillprofile.js"></script>
+
+
 	</head>
-	<body>
-		<form action="/accounts/fill_profile/"  method="post">{% csrf_token %}
-			{{ form.as_p }}
-			<input type="submit" value="Register" />
-		</form>
-		<script src="/static/authentication/js/animation1.js"></script>
+	<body style="background-color:lavender;" ng-app="myapp">
+		<div ng-controller="myctrl">
+
+			<div class="wrapper" style="height:100vh">
+			<div class="form" style="margin:auto;max-width:400px;margin-left:auto;margin-top:10%;padding:40px;background-color:white;">
+				<div class="row">
+					<p>Registration form</p>
+				</div>
+				<div class="row">
+					<fieldset class="form-group">
+						<label for="orgname">Organisation Name</label>
+						<input ng-model="OrganisationName" class="form-control" id="orgname">
+					</fieldset>
+				</div>
+				<div class="row">
+					<fieldset class="form-group">
+						<label for="orghead">Organisation Head</label>
+						<input ng-model="OrganisationHead" class="form-control" id="orghead">
+					</fieldset>
+				</div>
+				<div class="row">
+					<fieldset class="form-group">
+						<label for="orgstrength">Number of Volunteers</label>
+						<input ng-model="OrganisationStrength" type="number"  class="form-control" id="orgstrength">
+					</fieldset>
+				</div>
+				<div class="row">
+					<fieldset class="form-group">
+						<label for="latitude">Latitude</label>
+						<input ng-model="latitude" type="number" step="any" class="form-control" id="latitude">
+					</fieldset>
+				</div>
+				<div class="row">
+					<fieldset class="form-group">
+						<label for="longitude">longitude</label>
+						<input ng-model="longitude" type="number" step="any" class="form-control" id="longitude">
+					</fieldset>
+				</div>
+				<div class="row">
+					<fieldset class="form-group">
+						<label for="Tags">Organisation Name</label>
+						<input ng-model="Tags" class="form-control" id="Tags">
+					</fieldset>
+				</div>
+
+				<button class="btn btn-success pull-right" ng-click="TestFillProfile();"><i class="fa fa-plus"></i>&nbsp;&nbsp;Finish Registration</button>
+
+			</div>
+
+
+		</div>
+		</div>
 	</body>
 </html>

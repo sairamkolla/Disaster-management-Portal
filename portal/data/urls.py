@@ -21,5 +21,7 @@ urlpatterns = patterns('',
         url(r'^AddEmail/$','data.views.AddEmail'),
         url(r'^GetNumbers/$','data.views.GetNumbers'),
         url(r'^GetEmails/$','data.views.GetEmails'),
-        url(r'^SearchTwitter/$','data.views.SearchTwitter')
+        url(r'^SearchTwitter/$','data.views.SearchTwitter'),
+        url(r'^testfillprofile/$','data.views.testfillprofile'),
+        url(r'^testfillcredentials/$','data.views.testfillcredentials'),
         )

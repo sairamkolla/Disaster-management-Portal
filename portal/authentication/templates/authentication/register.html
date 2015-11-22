@@ -2,13 +2,47 @@
 <html>
 	<head>
 		<title>Disaster Response | register</title>
-		<link rel="stylesheet" href="/static/authentication/css/animation1.css" type="text/css" media="all">
+
+		<link rel="stylesheet" href="/static/organisation/new/bootstrap/css/bootstrap.min.css">
+		<script src="/static/organisation/new/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/static/organisation/new/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+		<script src="/static/organisation/js/angularjs.js"></script>
+
+
+
 	</head>
-	<body>
-		<form action="/accounts/register/"  method="post">{% csrf_token %}
-			{{ form.as_p }}
-			<input type="submit" value="Register" />
-		</form>
-		<script src="/static/authentication/js/animation1.js"></script>
+	<body style="background-color:lavender;">
+		<div >
+			<div class="wrapper" style="height:100vh">
+
+			<div class="form" style="margin:auto;max-width:400px;margin-left:auto;margin-top:10%;padding:40px;background-color:white;">
+				<div class="row">
+					Registration PART-1
+				</div
+      			<form class="form-contact" action="" method="POST">
+      				{% csrf_token %}
+					{% for field in form %}
+					<div class="row">
+        				<fieldset class="form-group">
+          					<label class="control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+            					<input type="text" class="form-control"
+                					name="{{ field.name }}"
+                					id="id_{{ field.name }}"
+                					value="" placeholder="" value="">
+
+							<br/>
+
+        				</fieldset>
+					</div>
+      				{% endfor %}
+
+        <br/>
+        <input type="submit" value="Submit"  class="btn btn-primary">
+</form>
+
+    </div>
+			</div>
+		</div>
+
 	</body>
 </html>

@@ -9,29 +9,10 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval','$wind
     function($scope, $http, $templateCache,$interval,$window) {
         console.log("inside controller");
 
-         $scope.login = function(){
-            console.log('inside login')
-            var data = {
-               username : $scope.username,
-               password : $scope.password
-            };
-            console.log(data)
-            $http.post('http://127.0.0.1:8000/accounts/login/',data).then(function(response){
-                // on good username and password
-                console.log(response);
-                $window.location.href = '/orgs/home/';
-            },function(data){
-                // on incorrect username and password
-                console.log(response);
-            });
-        };
-       $scope.register = function(){
+       $scope.TestFillProfile = function(){
             console.log('inside login')
             var data = {
                OrganisationName : $scope.OrganisationName,
-               password : $scope.password1,
-               password1 : $scope.password2,
-               username : $scope.username1,
                OrganisationStrength : $scope.OrganisationStrength,
                OrganisationHead : $scope.OrganisationHead,
                latitude : $scope.latitude,
@@ -39,12 +20,17 @@ app.controller('myctrl', ['$scope', '$http', '$templateCache','$interval','$wind
                Tags : $scope.Tags
             };
             console.log(data)
-            $http.post('http://127.0.0.1:8000/accounts/register/',data).then(function(response){
-                // on good username and password
+            $http.post('http://127.0.0.1:8000/data/testfillprofile/',data).then(function(response){
                 console.log(response);
-                //if(response.loggedin == 1){
-                //    $window.location.href = '/orgs/home/';
-                //}
+                if(response.hasOwnProperty('error')){
+                    console.log(response.error);
+                }
+                if(parseInt(response.data.ok) == 1){
+                  $window.location.href = '/orgs/home/';
+                }
+                else{
+                    console.log('asdsadasddas');
+                }
             },function(data){
                 // on incorrect username and password
                 console.log(response);

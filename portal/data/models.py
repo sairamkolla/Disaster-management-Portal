@@ -15,7 +15,7 @@ class Orgs(models.Model):
 
     # hosp,pol,fire,ngo
     def __unicode__(self):
-        return unicode(self.userid)
+        return unicode(self.name_of_org)
 
 
 class ContactNumbersOrgs(models.Model):

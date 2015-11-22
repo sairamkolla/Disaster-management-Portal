@@ -7,7 +7,53 @@ from collections import OrderedDict
 from rest_framework import status
 import json
 import twitter
+from django.contrib import auth
 # Create your views here.
+@api_view(['POST'])
+def testfillprofile(request):
+    if request.method == 'POST':
+        postdata = json.loads(request.body)
+        print postdata
+        OrganisationName = str(postdata['OrganisationName'])
+        OrganisationStrength = int(postdata['OrganisationStrength'])
+        OrganisationHead = str(postdata['OrganisationHead'])
+        lat  = float(postdata['latitude'])
+        lon = float(postdata['longitude'])
+        Tags = str(postdata['Tags'])
+
+        neworg = Orgs(userid = request.user.id,org_head = OrganisationHead,org_strength = OrganisationStrength,name_of_org = OrganisationName,latitude = lat,longitude = lon,tags = Tags)
+        neworg.save()
+        return Response({'response':'redirect to home page','ok':'1'})
+    return Response({'ok':'1'})
+
+@api_view(['POST'])
+def testfillcredentials(request):
+    if request.method == 'POST':
+        postdata = json.loads(request.body)
+        print postdata
+        name = str(postdata['username'])
+        pass1 = str(postdata['password'])
+        pass2 = str(postdata['password1'])
+
+        if not len(User.objects.filter(username = name)) == 0:
+            return Response({'error':'Username already Exists'})
+        if not pass1 == pass2:
+            return Response({'error':'Passwords Dont match!!'})
+
+        newuser = User(username = name , password = pass1)
+        user = newuser.save()
+
+        user = auth.authenticate(username = name,password = pass2)
+        if user is not None:
+            auth.login(request, user)
+            print "Sucessfully authenticated"
+            return Response({"response": user.id})
+        else:
+            return Response({"response": "Provided Credentials are incorrect  :) "})
+
+    return Response({'ok':'1'})
+
+
 
 @api_view(['POST'])
 def SearchTwitter(request):
