@@ -7,28 +7,37 @@
 		<script src="/static/organisation/new/bootstrap/js/bootstrap.min.js"></script>
 		<script src="/static/organisation/new/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 		<script src="/static/organisation/js/angularjs.js"></script>
-
+	<script>
+	function myfunc(){
+			console.log('asdasd');
+			var y = document.getElementById("id_password1");
+		 	y.type = 'password';
+	}
+	</script>
 
 
 	</head>
-	<body style="background-color:lavender;">
+	<body style="background-color:lavender;" onload="myfunc()">
 		<div >
 			<div class="wrapper" style="height:100vh">
 
 			<div class="form" style="margin:auto;max-width:400px;margin-left:auto;margin-top:10%;padding:40px;background-color:white;">
 				<div class="row">
 					Registration PART-1
-				</div
+				</div>
+
       			<form class="form-contact" action="" method="POST">
       				{% csrf_token %}
+
 					{% for field in form %}
 					<div class="row">
+						{{ field.key }}
         				<fieldset class="form-group">
           					<label class="control-label" for="id_{{ field.name }}">{{ field.label }}</label>
             					<input type="text" class="form-control"
                 					name="{{ field.name }}"
                 					id="id_{{ field.name }}"
-                					value="" placeholder="" value="">
+                					value="" placeholder="" value="" >
 
 							<br/>
 
@@ -37,7 +46,7 @@
       				{% endfor %}
 
         <br/>
-        <input type="submit" value="Submit"  class="btn btn-primary">
+        <input type="submit" value="Continue"  class="btn btn-primary">
 </form>
 
     </div>

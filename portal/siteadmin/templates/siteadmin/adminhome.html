@@ -188,11 +188,11 @@ desired effect
         <h3 class="box-title">Disaster Reports</h3>
       </div>
         <div class="box-body">
-    <div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
         <span class="info-box-icon bg-aqua"><i class="fa fa-plus"></i></span>
         <div class="info-box-content">
-          <span class="info-box-text">Disasters Reported</span>
+          <span class="info-box-text">Disasters <br>Reported</span>
           <span class="info-box-number">[[ reports.TotalDisasters]]</span>
         </div><!-- /.info-box-content -->
       </div><!-- /.info-box -->
@@ -201,7 +201,7 @@ desired effect
       <div class="info-box">
         <span class="info-box-icon bg-red"><i class="fa fa-thumbs-down"></i></span>
         <div class="info-box-content">
-          <span class="info-box-text">Fake</span>
+          <span class="info-box-text">REJECTED</span>
           <span class="info-box-number">[[reports.Fake]]</span>
         </div><!-- /.info-box-content -->
       </div><!-- /.info-box -->
@@ -210,11 +210,21 @@ desired effect
       <div class="info-box">
         <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
         <div class="info-box-content">
-          <span class="info-box-text">Original</span>
+          <span class="info-box-text">APPROVED</span>
           <span class="info-box-number">[[ reports.Original ]]</span>
         </div><!-- /.info-box-content -->
       </div><!-- /.info-box -->
     </div><!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-yellow"><i class="fa fa-warning"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">PENDING</span>
+          <span class="info-box-number">[[ reports.TotalDisasters - reports.Fake - reports.Original ]]</span>
+        </div><!-- /.info-box-content -->
+      </div><!-- /.info-box -->
+    </div><!-- /.col -->
+
 
 
     </div>
@@ -317,10 +327,10 @@ desired effect
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2015 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2015 <a href="#">SSAD-26</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->

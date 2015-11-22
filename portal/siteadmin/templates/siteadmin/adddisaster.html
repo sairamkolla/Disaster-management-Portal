@@ -30,9 +30,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <script src="/static/organisation/js/angularjs.js"></script>
-    <script src="/static/siteadmin/js/home.js"></script>
 
+  		<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <script src="/static/organisation/js/angularjs.js"></script>
+<script src="/static/siteadmin/js/adddisaster.js"></script>
+		<style>
+			#map {
+ 			   height:300px;
+  			  width:300px;
+			}
+			.infoWindowContent {
+    			font-size:  14px !important;
+   				 border-top: 1px solid #ccc;
+   				 padding-top: 10px;
+			}
+			h2 {
+    			margin-bottom:0;
+    			margin-top: 0;
+			}
+		</style>
 
 </head>
 <!--
@@ -197,7 +213,7 @@ desired effect
             <input type="text" class="form-control"
                 name="{{ field.name }}"
                 id="id_{{ field.name }}"
-                value="{{field.value}}" placeholder="" value="">
+                value="{{field.value}}" placeholder="" value="" ng-model="{{ field.name }}">
 
             <p class="help-text">{{ field.help_text }} </p>
        </div>
@@ -209,7 +225,9 @@ desired effect
 </form>
 
     </div>
+    <div id="map" style="position: absolute; background-color: rgb(229, 227, 223); overflow: hidden; top: 140px; right: 40px;">
 
+    </div>
       <!-- Your Page Content Here -->
 
     </section>
@@ -221,10 +239,9 @@ desired effect
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2015 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2015 <a href="#">SSAD-26</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->

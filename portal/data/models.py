@@ -8,11 +8,11 @@ class Orgs(models.Model):
     org_head = models.CharField(max_length=100)
     org_strength = models.IntegerField(default=0)
     name_of_org = models.CharField(max_length=100)
-    latitude = models.CharField(max_length=15)
-    longitude = models.CharField(max_length=15)
+    latitude = models.CharField(max_length=35)
+    longitude = models.CharField(max_length=35)
     created = models.DateTimeField(auto_now_add = True)
     tags = models.CharField(max_length=100, null=True)
-
+    profilecolor = models.CharField(max_length=7,default="#030303")
     # hosp,pol,fire,ngo
     def __unicode__(self):
         return unicode(self.name_of_org)
@@ -77,8 +77,8 @@ class MessagesFromAdmin(models.Model):
 
 class DisasterDescription(models.Model):
     no_of_sos_received = models.IntegerField(default=0)
-    latitude = models.CharField(max_length=15)
-    longitude = models.CharField(max_length=15)
+    latitude = models.CharField(max_length=35)
+    longitude = models.CharField(max_length=35)
     created = models.DateTimeField(auto_now_add = True)
     disaster_code = models.CharField(max_length=2)
     disaster_name = models.CharField(max_length=20)
@@ -91,8 +91,8 @@ class DisasterDescription(models.Model):
 
 class DisasterProposal(models.Model):
     no_of_sos_received = models.IntegerField(default=0)
-    latitude = models.CharField(max_length=15)
-    longitude = models.CharField(max_length=15)
+    latitude = models.CharField(max_length=35)
+    longitude = models.CharField(max_length=35)
     is_confirmed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add = True)
     disaster_code = models.CharField(max_length=2)
@@ -114,8 +114,8 @@ class DecisionsOrgs(models.Model):
 
 class SosReports(models.Model):
     disaster_code = models.CharField(max_length=2)
-    latitude = models.CharField(max_length=15)
-    longitude = models.CharField(max_length=15)
+    latitude = models.CharField(max_length=35)
+    longitude = models.CharField(max_length=35)
     sos_timestamp = models.DateTimeField(auto_now_add = True)
     is_disaster = models.BooleanField(default=0)
     disaster = models.ForeignKey(DisasterDescription)

@@ -181,8 +181,7 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Page Header
-        <small>Optional description</small>
+        Disasters Which need your help!!
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -194,7 +193,7 @@ desired effect
     <section class="content">
     <div class="row" >
       <div ng-repeat="disaster in disasters">
-      <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="col-md-4 col-sm-6 col-xs-12 ">
         <div class="panel panel-danger">
           <div class="panel-heading">
             Disaster Code : [[disaster.disaster_code]]
@@ -215,7 +214,7 @@ desired effect
           </div>
           <div class="panel-footer">
             <button href="#" class="btn btn-success" ng-click="decision(disaster.id,1,disaster)" ng-if="disaster.value == 0 || disaster.value == 2">Assist</button>
-            <button href="#" class="btn btn-danger" ng-click="decision(disaster.id,0,disaster)" ng-if="disaster.value == 1 || disaster.value == 2">Refuse</button>
+            <button href="#" class="btn btn-danger" ng-click="decision(disaster.id,0,disaster)" ng-if="disaster.value == 1 || disaster.value == 2">Cannot Assist</button>
 
           </div>
         </div>

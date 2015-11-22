@@ -7,6 +7,22 @@
 <script src="/static/organisation/new/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 		  <script src="/static/organisation/js/angularjs.js"></script>
 		  <script src="/static/authentication/js/fillprofile.js"></script>
+		<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<style>
+			#map {
+ 			   height:300px;
+  			  width:300px;
+			}
+			.infoWindowContent {
+    			font-size:  14px !important;
+   				 border-top: 1px solid #ccc;
+   				 padding-top: 10px;
+			}
+			h2 {
+    			margin-bottom:0;
+    			margin-top: 0;
+			}
+		</style>
 
 
 	</head>
@@ -14,7 +30,8 @@
 		<div ng-controller="myctrl">
 
 			<div class="wrapper" style="height:100vh">
-			<div class="form" style="margin:auto;max-width:400px;margin-left:auto;margin-top:10%;padding:40px;background-color:white;">
+				<div class="row ">
+			<div class="form  " style="margin:10% auto auto auto;max-width:400px;padding:40px;background-color:white;">
 				<div class="row">
 					<p>Registration form</p>
 				</div>
@@ -40,17 +57,19 @@
 					<fieldset class="form-group">
 						<label for="latitude">Latitude</label>
 						<input ng-model="latitude" type="number" step="any" class="form-control" id="latitude">
+
 					</fieldset>
 				</div>
 				<div class="row">
 					<fieldset class="form-group">
 						<label for="longitude">longitude</label>
 						<input ng-model="longitude" type="number" step="any" class="form-control" id="longitude">
+
 					</fieldset>
 				</div>
 				<div class="row">
 					<fieldset class="form-group">
-						<label for="Tags">Organisation Name</label>
+						<label for="Tags">Tags</label>
 						<input ng-model="Tags" class="form-control" id="Tags">
 					</fieldset>
 				</div>
@@ -58,9 +77,11 @@
 				<button class="btn btn-success pull-right" ng-click="TestFillProfile();"><i class="fa fa-plus"></i>&nbsp;&nbsp;Finish Registration</button>
 
 			</div>
-
+  			<div id="map" class="col-md-3" style="position: absolute; background-color: rgb(229, 227, 223); overflow: hidden; top: 200px; right: 60px;"></div>
+				</div>
+				</div>
 
 		</div>
-		</div>
+
 	</body>
 </html>
