@@ -31,7 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <script src="/static/organisation/js/angularjs.js"></script>
-  <script src="/static/siteadmin/js/adminorgsearch.js"></script>
+  <script src="/static/siteadmin/js/twittersearch.js"></script>
 
 
 
@@ -157,11 +157,11 @@ desired effect
         <!-- Optionally, you can add icons to the links -->
         <li><a href="/siteadmin/"><i class="fa fa-home"></i> <span>Home (REPORTS)</span></a></li>
         <li><a href="/siteadmin/approvals/"><i class="fa fa-dashboard"></i> <span>Approve Disasters</span></a></li>
-        <li class="active"><a href="/siteadmin/orgsearch/"><i class="fa fa-search"></i> <span>Search Organisations</span></a></li>
+        <li><a href="/siteadmin/orgsearch/"><i class="fa fa-search"></i> <span>Search Organisations</span></a></li>
           <li><a href="/siteadmin/disastersearch/"><i class="fa fa-search"></i> <span>Search Disasters</span></a></li>
 
         <li><a href="/siteadmin/make_disaster/"><i class="fa fa-plus"></i> <span>Add Disaster</span></a></li>
-                  <li><a href="/siteadmin/searchtwitter/"><i class="fa fa-twitter"></i> <span>Search Twitter</span></a></li>
+          <li  class="active"><a href="/siteadmin/searchtwitter/"><i class="fa fa-twitter"></i> <span>Search Twitter</span></a></li>
 
       </ul>
       <!-- /.sidebar-menu -->
@@ -174,116 +174,58 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Search For Organisations.
+        Search on Twitter.
 
       </h1>
     </section>
        <section class="content">
 
-        <input ng-model="orgsearchparameter"  style="max-width:250px;" class="form-control input-sm" type="text" placeholder="Enter Search Word"></input>
+        <input ng-model="twittersearchparameter"  style="max-width:250px;" class="form-control input-sm" type="text" placeholder="Enter Search Word"></input>
         <br>
-        <button class="btn btn-success" ng-click="SearchOrgs(1);">Search by Tags</button>
-        <button class="btn btn-primary" ng-click="SearchOrgs(0);">Search By Name</button>
+        <button class="btn btn-primary" ng-click="SearchTwitter();"><i class="fa fa-twitter"></i>&nbsp;&nbsp;Search Twitter</button>
         <br>
         <br>
-    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-        <th>Organisation name</th>
-        <th>Organisation Head</th>
-        <th>Organisation Strength</th>
-        <th>latitude</th>
-        <th>longitude</th>
-        <th>Tags</th>
-        </thead>
-      <tbody>
 
-                <tr ng-repeat-start="org in requiredorgs">
-                    <td>[[ org.orgname ]]</td>
-                    <td>[[ org.orghead ]]</td>
-                    <td>[[ org.orgstrength ]]</td>
-                    <td>[[ org.latitude ]]</td>
-                    <td>[[ org.longitude ]]</td>
-                    <td>[[ org.tags ]]</td>
-                    <td>
-                        <button class="btn btn-primary" ng-click="control(org.userid)" ng-if="view == 0">view</button>
-                        <button class="btn btn-primary" ng-click="closebox()" ng-if="presentorg == org.userid && view == 1">close</button>
-                    </td>
-
-          <!-- /.box -->
-                </tr>
-                <tr ng-repeat-end ng-if="view==1 && presentorg == org.userid" >
-                    <td colspan="7">
-
-                        <div class="box box-solid" style="margin:auto;max-width:45%">
+           <div class="row" >
+          <!-- Box Comment -->
+               <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="tweet in tweets" >
+                    <div class="box box-widget">
             <div class="box-header with-border">
-              <h3 class="box-title">Actions by [[org.orgname]]</h3>
+              <div class="user-block">
+                <img class="img-circle" src="[[ tweet.user.profile_image_url ]]" alt="User Image">
+                <span class="username"><a href="[[ 'http://www.twitter.com/' + tweet.user.screen_name + '/' ]]">[[ tweet.user.name ]]</a><small>&nbsp;&nbsp;@[[ tweet.user.screen_name ]]</small></span>
+                <span class="description">at [[tweet.created_at]]</span>
+              </div>
+              <!-- /.user-block -->
+              <div class="box-tools">
+
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+              <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <div class="box-group" id="accordion">
-                <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-                <div class="panel box box-success">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a class="collapsed" aria-expanded="false" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                        Disasters Assisted
-                      </a>
-                    </h4>
-                  </div>
-                  <div style="height: 0px;" aria-expanded="false" id="collapseOne" class="panel-collapse collapse">
-                    <div class="box-body">
-                      <ul>
-                          <li ng-repeat="disaster in accepteddisasters">[[ disaster.disaster_name ]]</li>
-                      </ul>
-                    </div>
-                  </div>
+                <div ng-if="tweet.hasOwnProperty('media')">
+                    <img class="img-responsive pad" src="[[ tweet.media[0].media_url ]]" alt="Photo" >
+
+
+
                 </div>
-                <div class="panel box box-danger">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a aria-expanded="false" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                        Disasters Refused to Assist
-                      </a>
-                    </h4>
-                  </div>
-                  <div style="height: 0px;" aria-expanded="false" id="collapseTwo" class="panel-collapse collapse">
-                    <div class="box-body">
-                      <ul>
-                          <li ng-repeat="disaster in notaccepteddisasters">[[ disaster.disaster_name ]]</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="panel box box-warning">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a aria-expanded="false" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                        No action
-                      </a>
-                    </h4>
-                  </div>
-                  <div style="height: 0px;" aria-expanded="false" id="collapseThree" class="panel-collapse collapse">
-                    <div class="box-body">
-                      <ul>
-                          <li ng-repeat="disaster in noopiniondisasters">[[ disaster.disaster_name ]]</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <div ng-bind-html=" tweet.text | createAnchors"></div>
+                <br>
+              <span class="pull-right text-muted" ng-if="tweet.hasOwnProperty('media')"><a href="[[ tweet.media[0].expanded_url ]]" class="btn btn-primary"><i class="fa fa-twitter"></i>  View the Tweet</a></span>
             </div>
             <!-- /.box-body -->
+
+            <!-- /.box-footer -->
+
+            <!-- /.box-footer -->
           </div>
+               </div>
           <!-- /.box -->
-                    </td>
-
-
-                </tr>
-
-
-       </tbody>
-      </table>
-
+            </div>
 
       <!-- Your Page Content Here -->
 

@@ -6,7 +6,19 @@ from rest_framework.response import Response
 from collections import OrderedDict
 from rest_framework import status
 import json
+import twitter
 # Create your views here.
+
+@api_view(['POST'])
+def SearchTwitter(request):
+    keyword = str(json.loads(request.body)['keyword'])
+    testapi = twitter.Api('x3xggt7CsLflL2iOZBz1boHWe', 'HmnXcaWuSHxArxuB2CM4e82wjQ3LW3OoD1EqxMGIzCWogb6Der',
+                     '298409124-5z7ySh9PcgTHuxyOF0AfeffMcatr0ZyfYpl8pQDp', 'RWimzN4VDcL1otBr9Tv27JomemIxYQMNlgHRDXWl7iCmq')
+    r = testapi.GetSearch(term=keyword,count=200)#,result_type='recent')
+
+    json_results = [result.AsDict() for result in r]
+    #print json_results.media
+    return Response(json_results)
 
 @api_view(['GET','POST'])
 def getapproveddisasters(request,id,disasterid):

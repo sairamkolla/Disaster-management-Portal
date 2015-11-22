@@ -55,3 +55,6 @@ def OrgSearch(request):
 
 def DisasterSearch(request):
     return render_to_response('siteadmin/admindisastersearch.html')
+
+def SearchTwitter(request):
+    return render_to_response('siteadmin/admintwittersearch.html')
