@@ -12,6 +12,8 @@
 			console.log('asdasd');
 			var y = document.getElementById("id_password1");
 		 	y.type = 'password';
+		 	var z = document.getElementById("id_password2");
+		 	z.type = 'password';
 	}
 	</script>
 
@@ -22,10 +24,10 @@
 			<div class="wrapper" style="height:100vh">
 
 			<div class="form" style="margin:auto;max-width:400px;margin-left:auto;margin-top:10%;padding:40px;background-color:white;">
-				<div class="row">
+				<div class="row" style="text-align: center; font-size: 2em;">
 					Registration PART-1
 				</div>
-
+				<br>
       			<form class="form-contact" action="" method="POST">
       				{% csrf_token %}
 

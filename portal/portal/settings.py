@@ -40,7 +40,6 @@ INSTALLED_APPS = (
         'organisation',
         'siteadmin',
         'authentication',
-        'password_reset',
         'rest_framework',
         'corsheaders',
         'data',
