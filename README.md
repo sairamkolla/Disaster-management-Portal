@@ -1,5 +1,1 @@
-Django code of the project is found here
-
-Testing
-ASASDASASD
-Lets see
+A web application made in angular js and django
